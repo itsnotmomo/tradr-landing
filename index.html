@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tradr — Coming Soon</title>
-  <meta name="description" content="The trading platform where your track record speaks for itself. Join the waitlist." />
+  <title>Tradr — The Trading Platform Where Your Track Record Speaks for Itself</title>
+  <meta name="description" content="The social trading platform where every signal is verified automatically. No more fake gurus. Real wins. Real losses. Real accountability. Join the waitlist." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --green: #00C896;
-      --green-dim: rgba(0,200,150,0.12);
-      --green-glow: rgba(0,200,150,0.25);
+      --green-dim: rgba(0,200,150,0.1);
+      --green-glow: rgba(0,200,150,0.2);
+      --red: #ff4d4d;
       --bg: #060a08;
-      --bg2: #0c1410;
+      --bg2: #0b1410;
+      --bg3: #0f1a15;
       --surface: rgba(255,255,255,0.03);
       --border: rgba(255,255,255,0.07);
+      --border-green: rgba(0,200,150,0.2);
       --text: #e8f0ec;
       --muted: rgba(232,240,236,0.45);
+      --muted2: rgba(232,240,236,0.25);
       --mono: 'DM Mono', monospace;
       --sans: 'Syne', sans-serif;
+      --body: 'DM Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -30,644 +35,559 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: var(--sans);
+      font-family: var(--body);
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* ── GRID BACKGROUND ── */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(0,200,150,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,200,150,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(0,200,150,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,150,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ── RADIAL GLOW ── */
-    .glow-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .glow-orb-1 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(0,200,150,0.15) 0%, transparent 70%);
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      animation: pulse 8s ease-in-out infinite;
-    }
-    .glow-orb-2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
-      bottom: 100px; right: -100px;
-      animation: pulse 10s ease-in-out infinite reverse;
-    }
+    .glow { position: fixed; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: 0; }
+    .glow-1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,200,150,0.12) 0%, transparent 70%); top: -300px; left: 50%; transform: translateX(-50%); animation: g1 9s ease-in-out infinite; }
+    .glow-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,200,150,0.07) 0%, transparent 70%); bottom: 200px; right: -150px; animation: g2 12s ease-in-out infinite; }
+    .glow-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,200,150,0.06) 0%, transparent 70%); top: 60%; left: -100px; animation: g2 15s ease-in-out infinite reverse; }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-      50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-    }
-    .glow-orb-2 {
-      animation: pulse2 10s ease-in-out infinite reverse;
-    }
-    @keyframes pulse2 {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 0.9; }
-    }
+    @keyframes g1 { 0%,100%{opacity:.7;transform:translateX(-50%) scale(1)} 50%{opacity:1;transform:translateX(-50%) scale(1.08)} }
+    @keyframes g2 { 0%,100%{opacity:.5} 50%{opacity:.9} }
 
-    /* ── LAYOUT ── */
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── NAV ── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 48px;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 56px;
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(6,10,8,0.7);
+      background: rgba(6,10,8,0.85);
+      backdrop-filter: blur(20px);
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark { width: 34px; height: 34px; background: var(--green); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .logo-name { font-family: var(--sans); font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
-    .logo-icon {
-      width: 32px; height: 32px;
-      background: var(--green);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-badge { font-family: var(--mono); font-size: 10px; color: var(--green); border: 1px solid var(--border-green); padding: 5px 12px; border-radius: 100px; letter-spacing: 0.12em; text-transform: uppercase; }
+    .nav-cta { background: var(--green); color: #060a08; font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 8px; text-decoration: none; transition: all 0.2s; letter-spacing: -0.2px; }
+    .nav-cta:hover { background: #00e0a8; transform: scale(1.03); }
 
-    .logo-text {
-      font-family: var(--sans);
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.5px;
-    }
+    section { position: relative; z-index: 1; }
 
-    .nav-badge {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--green);
-      border: 1px solid var(--green);
-      padding: 4px 10px;
-      border-radius: 100px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.8;
-    }
-
-    /* ── HERO ── */
     .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px 60px;
-      gap: 0;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 100px 24px 80px;
     }
 
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--green);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .eyebrow {
+      font-family: var(--mono); font-size: 11px; color: var(--green);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 32px;
+      display: flex; align-items: center; gap: 12px;
+      opacity: 0; animation: fadeUp .8s ease forwards .2s;
     }
-
-    .hero-eyebrow::before, .hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--green);
-      opacity: 0.5;
-    }
+    .eyebrow::before, .eyebrow::after { content:''; display:block; width:40px; height:1px; background:var(--green); opacity:.4; }
 
     .hero-title {
-      font-size: clamp(52px, 8vw, 96px);
-      font-weight: 800;
-      line-height: 0.95;
-      letter-spacing: -3px;
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.4s;
+      font-family: var(--sans);
+      font-size: clamp(56px, 9vw, 108px);
+      font-weight: 800; line-height: .92; letter-spacing: -4px;
+      margin-bottom: 36px;
+      opacity: 0; animation: fadeUp .9s ease forwards .4s;
     }
-
-    .hero-title .accent {
-      color: var(--green);
-      display: block;
-    }
-
-    .hero-title .dim {
-      color: var(--muted);
-    }
+    .hero-title .line1 { color: var(--muted); display: block; }
+    .hero-title .line2 { color: var(--green); display: block; }
+    .hero-title .line3 { color: var(--text); display: block; }
 
     .hero-sub {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--muted);
-      max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 56px;
-      font-weight: 400;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.6s;
+      font-size: clamp(17px, 2vw, 21px); color: var(--muted); max-width: 580px;
+      line-height: 1.65; margin-bottom: 60px; font-weight: 300;
+      opacity: 0; animation: fadeUp .8s ease forwards .6s;
     }
 
-    /* ── WAITLIST FORM ── */
-    .waitlist {
-      width: 100%;
-      max-width: 460px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.8s;
-    }
-
+    .waitlist-wrap { width:100%; max-width:480px; opacity:0; animation: fadeUp .8s ease forwards .8s; }
     .waitlist-form {
-      display: flex;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 6px;
-      transition: border-color 0.3s;
+      display: flex; gap: 8px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 14px; padding: 6px;
+      transition: border-color .3s, box-shadow .3s;
     }
-
-    .waitlist-form:focus-within {
-      border-color: rgba(0,200,150,0.4);
-      box-shadow: 0 0 0 4px var(--green-dim);
-    }
-
+    .waitlist-form:focus-within { border-color: var(--border-green); box-shadow: 0 0 0 4px var(--green-dim); }
     .waitlist-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 12px 16px;
-      font-family: var(--sans);
-      font-size: 15px;
-      color: var(--text);
-      min-width: 0;
+      flex:1; background:transparent; border:none; outline:none;
+      padding: 12px 16px; font-family: var(--body); font-size: 15px; color: var(--text); min-width:0;
     }
-
-    .waitlist-input::placeholder {
-      color: var(--muted);
-    }
-
+    .waitlist-input::placeholder { color: var(--muted2); }
     .waitlist-btn {
-      background: var(--green);
-      color: #060a08;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 24px;
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-      letter-spacing: -0.3px;
+      background: var(--green); color: #060a08; border: none; border-radius: 10px;
+      padding: 12px 22px; font-family: var(--sans); font-size: 14px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; transition: all .2s; letter-spacing: -.3px;
     }
-
-    .waitlist-btn:hover {
-      background: #00e0a8;
-      transform: scale(1.02);
-    }
-
-    .waitlist-btn:active {
-      transform: scale(0.98);
-    }
-
-    .waitlist-note {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 14px;
-      letter-spacing: 0.05em;
-    }
-
+    .waitlist-btn:hover { background: #00e0a8; transform: scale(1.02); }
+    .waitlist-btn:active { transform: scale(.98); }
     .waitlist-success {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: var(--green-dim);
-      border: 1px solid rgba(0,200,150,0.3);
-      border-radius: 12px;
-      padding: 16px 20px;
-      font-size: 14px;
-      color: var(--green);
-      font-weight: 500;
+      display: none; align-items: center; gap: 10px;
+      background: var(--green-dim); border: 1px solid var(--border-green);
+      border-radius: 12px; padding: 16px 20px; font-size: 14px; color: var(--green); font-weight: 500;
     }
+    .waitlist-note { font-family: var(--mono); font-size: 11px; color: var(--muted2); margin-top: 14px; letter-spacing:.05em; }
 
-    /* ── STATS STRIP ── */
-    .stats {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      padding: 40px 48px;
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1s;
-    }
+    .counter-row { display:flex; align-items:center; gap:10px; margin-top:20px; justify-content:center; }
+    .avatars { display:flex; }
+    .av { width:26px; height:26px; border-radius:50%; border:2px solid var(--bg); margin-left:-7px; font-size:10px; display:flex; align-items:center; justify-content:center; font-weight:700; font-family:var(--sans); }
+    .av:first-child{margin-left:0;background:#00C896;color:#060a08;}
+    .av:nth-child(2){background:#1a7a5e;color:#fff;}
+    .av:nth-child(3){background:#0f4d3b;color:#fff;}
+    .av:nth-child(4){background:#1c3a30;color:#aaa;font-size:9px;}
+    .counter-txt { font-family:var(--mono); font-size:12px; color:var(--muted); }
+    .counter-txt strong { color:var(--text); }
 
-    .stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      padding: 0 48px;
-      border-right: 1px solid var(--border);
-    }
+    .ticker-wrap { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:14px 0; background:var(--bg2); }
+    .ticker { display:flex; gap:56px; animation: scrollticker 35s linear infinite; white-space:nowrap; }
+    .t-item { display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:12px; color:var(--muted); }
+    .t-dot { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; }
+    .win { color:var(--green); } .loss { color:var(--red); }
+    @keyframes scrollticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-    .stat:last-child {
-      border-right: none;
-    }
-
-    .stat-num {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: -1px;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ── FEATURES ── */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .feature {
-      background: var(--bg);
-      padding: 40px 36px;
-      transition: background 0.3s;
-    }
-
-    .feature:hover {
-      background: var(--bg2);
-    }
-
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--green-dim);
-      border: 1px solid rgba(0,200,150,0.2);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .feature-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: -0.3px;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 400;
-    }
-
-    /* ── TICKER ── */
-    .ticker-wrap {
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-      padding: 16px 0;
-      background: var(--bg2);
-    }
-
-    .ticker {
-      display: flex;
-      gap: 48px;
-      animation: ticker 30s linear infinite;
-      white-space: nowrap;
-    }
-
-    .ticker-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    .ticker-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      flex-shrink: 0;
-    }
-
-    .ticker-win { color: var(--green); }
-    .ticker-loss { color: #ff5e5e; }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 28px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .problem {
+      padding: 120px 56px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
       border-top: 1px solid var(--border);
     }
 
-    .footer-copy {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
+    .section-label { font-family:var(--mono); font-size:11px; color:var(--green); letter-spacing:.2em; text-transform:uppercase; margin-bottom:20px; }
+
+    .problem-title { font-family:var(--sans); font-size: clamp(36px,4vw,52px); font-weight:800; line-height:1; letter-spacing:-2px; margin-bottom:24px; }
+    .problem-body { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:24px; font-weight:300; }
+    .problem-stat-row { display:flex; gap:32px; margin-top:8px; }
+    .p-stat { display:flex; flex-direction:column; gap:6px; }
+    .p-stat-num { font-family:var(--sans); font-size:36px; font-weight:800; color:var(--green); letter-spacing:-1.5px; line-height:1; }
+    .p-stat-label { font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+
+    .problem-visual { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 32px; display:flex; flex-direction:column; gap:16px; }
+    .pv-label { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+    .fake-post { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; display:flex; flex-direction:column; gap:10px; }
+    .fake-post-header { display:flex; align-items:center; gap:10px; }
+    .fake-av { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg, #1a7a5e, #0f4d3b); flex-shrink:0; }
+    .fake-name { font-size:14px; font-weight:600; }
+    .fake-handle { font-family:var(--mono); font-size:11px; color:var(--muted); }
+    .fake-content { font-size:13px; color:var(--muted); line-height:1.5; }
+    .fake-badge-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .fake-badge { font-family:var(--mono); font-size:10px; padding:3px 10px; border-radius:100px; }
+    .badge-win { background:rgba(0,200,150,.15); color:var(--green); border:1px solid var(--border-green); }
+    .badge-hidden { background:rgba(255,77,77,.1); color:#ff6b6b; border:1px solid rgba(255,77,77,.2); }
+    .badge-fake { background:rgba(255,165,0,.1); color:#ffaa00; border:1px solid rgba(255,165,0,.2); }
+
+    .solution { padding:120px 56px; border-top:1px solid var(--border); background:var(--bg2); }
+    .solution-header { text-align:center; margin-bottom:72px; }
+    .solution-title { font-family:var(--sans); font-size:clamp(40px,5vw,64px); font-weight:800; letter-spacing:-2.5px; line-height:.95; margin-bottom:20px; }
+    .solution-sub { font-size:17px; color:var(--muted); max-width:520px; margin:0 auto; line-height:1.65; font-weight:300; }
+
+    .flow { display:grid; grid-template-columns: repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; margin-bottom:72px; }
+    .flow-step { background:var(--bg2); padding:36px 28px; }
+    .flow-step:hover { background:var(--bg3); }
+    .step-num { font-family:var(--mono); font-size:11px; color:var(--green); letter-spacing:.15em; margin-bottom:16px; }
+    .step-icon { font-size:28px; margin-bottom:16px; }
+    .step-title { font-family:var(--sans); font-size:16px; font-weight:700; margin-bottom:10px; letter-spacing:-.3px; }
+    .step-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+
+    .features-section { padding:120px 56px; border-top:1px solid var(--border); }
+    .features-header { margin-bottom:72px; }
+    .features-title { font-family:var(--sans); font-size:clamp(40px,5vw,64px); font-weight:800; letter-spacing:-2.5px; line-height:.95; margin-bottom:16px; }
+    .features-sub { font-size:17px; color:var(--muted); max-width:480px; line-height:1.6; font-weight:300; }
+
+    .features-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; }
+    .feat { background:var(--bg); padding:40px 36px; transition:background .3s; }
+    .feat:hover { background:var(--bg2); }
+    .feat-icon { width:44px; height:44px; background:var(--green-dim); border:1px solid var(--border-green); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:22px; }
+    .feat-title { font-family:var(--sans); font-size:17px; font-weight:700; margin-bottom:12px; letter-spacing:-.4px; }
+    .feat-desc { font-size:14px; color:var(--muted); line-height:1.65; font-weight:300; }
+    .feat-tag { display:inline-block; font-family:var(--mono); font-size:10px; padding:3px 10px; border-radius:100px; margin-top:16px; background:var(--green-dim); color:var(--green); border:1px solid var(--border-green); letter-spacing:.08em; }
+    .feat-tag-soon { background:rgba(255,165,0,.08); color:#ffaa00; border-color:rgba(255,165,0,.2); }
+
+    .markets-section { padding:100px 56px; border-top:1px solid var(--border); background:var(--bg2); }
+    .markets-title { font-family:var(--sans); font-size:clamp(36px,4vw,52px); font-weight:800; letter-spacing:-2px; margin-bottom:16px; }
+    .markets-sub { font-size:16px; color:var(--muted); margin-bottom:52px; font-weight:300; }
+    .markets-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .market-card { background:var(--bg); border:1px solid var(--border); border-radius:14px; padding:24px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; transition:all .3s; }
+    .market-card:hover { border-color:var(--border-green); background:var(--bg3); transform:translateY(-2px); }
+    .market-emoji { font-size:28px; }
+    .market-name { font-family:var(--sans); font-size:14px; font-weight:700; }
+    .market-count { font-family:var(--mono); font-size:11px; color:var(--muted); }
+
+    .monetize { padding:120px 56px; border-top:1px solid var(--border); }
+    .monetize-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .monetize-title { font-family:var(--sans); font-size:clamp(40px,5vw,60px); font-weight:800; letter-spacing:-2.5px; line-height:.95; margin-bottom:24px; }
+    .monetize-body { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:24px; font-weight:300; }
+    .pricing-cards { display:flex; flex-direction:column; gap:12px; }
+    .price-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; transition:border-color .3s; }
+    .price-card:hover { border-color:var(--border-green); }
+    .price-card.featured { border-color:var(--border-green); background:var(--green-dim); }
+    .pc-left { display:flex; flex-direction:column; gap:4px; }
+    .pc-name { font-family:var(--sans); font-size:15px; font-weight:700; }
+    .pc-desc { font-size:13px; color:var(--muted); }
+    .pc-price { font-family:var(--sans); font-size:22px; font-weight:800; color:var(--green); letter-spacing:-1px; }
+    .pc-free { color:var(--muted); font-size:16px; }
+
+    .roadmap { padding:120px 56px; border-top:1px solid var(--border); background:var(--bg2); }
+    .roadmap-title { font-family:var(--sans); font-size:clamp(40px,5vw,64px); font-weight:800; letter-spacing:-2.5px; margin-bottom:16px; }
+    .roadmap-sub { font-size:17px; color:var(--muted); max-width:520px; margin-bottom:64px; line-height:1.6; font-weight:300; }
+    .timeline { display:flex; flex-direction:column; gap:0; border-left:1px solid var(--border); margin-left:20px; }
+    .tl-item { position:relative; padding:0 0 48px 40px; }
+    .tl-item::before { content:''; position:absolute; left:-5px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--border); border:2px solid var(--bg2); }
+    .tl-item.active::before { background:var(--green); box-shadow:0 0 0 4px var(--green-dim); }
+    .t-phase { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; margin-bottom:8px; }
+    .t-title { font-family:var(--sans); font-size:20px; font-weight:700; letter-spacing:-.5px; margin-bottom:12px; }
+    .t-items { display:flex; flex-direction:column; gap:6px; }
+    .t-feat { font-size:14px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+    .t-feat::before { content:'→'; color:var(--green); opacity:.6; flex-shrink:0; }
+
+    .stats-section { padding:80px 56px; border-top:1px solid var(--border); }
+    .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; }
+    .stat-cell { background:var(--bg); padding:40px 32px; }
+    .stat-num { font-family:var(--sans); font-size:clamp(32px,4vw,48px); font-weight:800; color:var(--green); letter-spacing:-2px; line-height:1; margin-bottom:8px; }
+    .stat-label { font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; line-height:1.5; }
+
+    .final-cta {
+      padding:120px 56px; border-top:1px solid var(--border);
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,200,150,0.08) 0%, transparent 70%);
     }
+    .cta-title { font-family:var(--sans); font-size:clamp(48px,7vw,88px); font-weight:800; letter-spacing:-3.5px; line-height:.92; margin-bottom:28px; }
+    .cta-title .green { color:var(--green); }
+    .cta-sub { font-size:18px; color:var(--muted); max-width:500px; line-height:1.65; margin-bottom:56px; font-weight:300; }
+    .cta-waitlist { width:100%; max-width:480px; }
 
-    .footer-copy span { color: var(--green); }
+    footer { padding:32px 56px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .footer-left { display:flex; flex-direction:column; gap:6px; }
+    .footer-copy { font-family:var(--mono); font-size:12px; color:var(--muted); }
+    .footer-copy span { color:var(--green); }
+    .footer-tagline { font-family:var(--mono); font-size:11px; color:var(--muted2); }
+    .footer-links { display:flex; gap:28px; }
+    .footer-links a { font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--green); }
 
-    .footer-links {
-      display: flex;
-      gap: 24px;
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0; transform:translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:900px) {
+      nav { padding:20px 24px; }
+      .nav-right .nav-badge { display:none; }
+      .problem, .monetize-inner { grid-template-columns:1fr; gap:48px; }
+      .flow { grid-template-columns:1fr 1fr; }
+      .features-grid { grid-template-columns:1fr; }
+      .markets-grid { grid-template-columns:repeat(3,1fr); }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .problem, .solution, .features-section, .monetize, .roadmap, .markets-section, .stats-section, .final-cta { padding:72px 24px; }
+      footer { flex-direction:column; gap:20px; text-align:center; padding:32px 24px; }
+      .cta-title { letter-spacing:-2px; }
+      .waitlist-form { flex-direction:column; }
+      .waitlist-btn { width:100%; padding:14px; }
     }
-
-    .footer-links a {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+    @media(max-width:600px) {
+      .flow { grid-template-columns:1fr; }
+      .markets-grid { grid-template-columns:repeat(2,1fr); }
+      .stats-grid { grid-template-columns:1fr; }
+      .hero-title { letter-spacing:-2.5px; }
     }
-
-    .footer-links a:hover { color: var(--green); }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      .hero { padding: 60px 24px 48px; }
-      .hero-title { letter-spacing: -2px; }
-      .stats { flex-wrap: wrap; gap: 24px; padding: 32px 24px; }
-      .stat { border-right: none; padding: 0 24px; }
-      .features { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
-      .waitlist-form { flex-direction: column; }
-      .waitlist-btn { width: 100%; padding: 14px; }
-    }
-
-    /* ── COUNTER ── */
-    .counter-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 24px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .counter-avatars {
-      display: flex;
-    }
-
-    .counter-avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid var(--bg);
-      margin-left: -6px;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-    }
-
-    .counter-avatar:first-child { margin-left: 0; background: #00C896; color: #060a08; }
-    .counter-avatar:nth-child(2) { background: #1a7a5e; color: white; }
-    .counter-avatar:nth-child(3) { background: #0f4d3b; color: white; }
-
-    .counter-text { color: var(--muted); }
-    .counter-text strong { color: var(--text); }
   </style>
 </head>
 <body>
 
-<div class="glow-orb glow-orb-1"></div>
-<div class="glow-orb glow-orb-2"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
 
-<div class="wrapper">
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-mark">📈</div>
+    <span class="logo-name">Tradr</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-badge">Coming Summer 2026</span>
+    <a class="nav-cta" href="#waitlist">Join Waitlist</a>
+  </div>
+</nav>
 
-  <!-- NAV -->
-  <nav>
-    <a class="logo" href="#">
-      <div class="logo-icon">📈</div>
-      <span class="logo-text">Tradr</span>
-    </a>
-    <span class="nav-badge">Coming Soon</span>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-eyebrow">Launching Summer 2026</div>
-
-    <h1 class="hero-title">
-      <span class="dim">Your track record</span>
-      <span class="accent">speaks for itself.</span>
-    </h1>
-
-    <p class="hero-sub">
-      The social trading platform where every signal is verified automatically. 
-      No more fake gurus. Real wins. Real losses. Real accountability.
-    </p>
-
-    <!-- WAITLIST -->
-    <div class="waitlist">
-      <div class="waitlist-form" id="waitlist-form">
-        <input
-          class="waitlist-input"
-          type="email"
-          id="email-input"
-          placeholder="Enter your email address"
-          autocomplete="email"
-        />
-        <button class="waitlist-btn" onclick="submitWaitlist()">Join Waitlist</button>
-      </div>
-      <div class="waitlist-success" id="waitlist-success">
-        ✅ &nbsp; You're on the list! We'll notify you at launch.
-      </div>
-      <p class="waitlist-note">No spam. Just a one-time launch notification.</p>
-
-      <div class="counter-wrap">
-        <div class="counter-avatars">
-          <div class="counter-avatar">M</div>
-          <div class="counter-avatar">A</div>
-          <div class="counter-avatar">J</div>
-        </div>
-        <span class="counter-text"><strong id="counter">247</strong> traders already on the waitlist</span>
-      </div>
+<section class="hero">
+  <div class="eyebrow">The New Standard in Trading</div>
+  <h1 class="hero-title">
+    <span class="line1">Your track record</span>
+    <span class="line2">speaks for itself.</span>
+    <span class="line3">Always.</span>
+  </h1>
+  <p class="hero-sub">
+    Tradr is the social trading platform where every signal is verified automatically. 
+    Post your trades. Build your record. Prove you're profitable. 
+    No more fake gurus — just verifiable truth.
+  </p>
+  <div class="waitlist-wrap" id="waitlist">
+    <div class="waitlist-form" id="wf1">
+      <input class="waitlist-input" type="email" id="e1" placeholder="Enter your email address" autocomplete="email" />
+      <button class="waitlist-btn" onclick="submitWL('e1','wf1','ws1')">Join Waitlist →</button>
     </div>
-  </section>
-
-  <!-- TICKER -->
-  <div class="ticker-wrap">
-    <div class="ticker">
-      <div class="ticker-item"><span class="ticker-dot"></span> @momo7x · EUR/USD BUY · <span class="ticker-win">+2.4R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @andr3a · BTC/USD SELL · <span class="ticker-win">+1.8R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @traderboss · AAPL BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @forexking · GBP/USD SELL · <span class="ticker-win">+3.1R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @cryptomike · ETH/USD BUY · <span class="ticker-win">+2.0R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @signals99 · XAU/USD BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @momo7x · EUR/USD BUY · <span class="ticker-win">+2.4R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @andr3a · BTC/USD SELL · <span class="ticker-win">+1.8R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @traderboss · AAPL BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @forexking · GBP/USD SELL · <span class="ticker-win">+3.1R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @cryptomike · ETH/USD BUY · <span class="ticker-win">+2.0R ✓ TP HIT</span></div>
-      <div class="ticker-item"><span class="ticker-dot"></span> @signals99 · XAU/USD BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
+    <div class="waitlist-success" id="ws1">✅ &nbsp; You're on the list. We'll notify you at launch.</div>
+    <p class="waitlist-note">No spam. One email when we launch.</p>
+    <div class="counter-row">
+      <div class="avatars">
+        <div class="av">M</div><div class="av">A</div><div class="av">J</div><div class="av">+</div>
+      </div>
+      <span class="counter-txt"><strong id="ctr1">247</strong> traders already waiting</span>
     </div>
   </div>
+</section>
 
-  <!-- FEATURES -->
-  <div class="features">
-    <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <div class="feature-title">Tamper-Proof Track Record</div>
-      <div class="feature-desc">Every trade is validated automatically when price hits TP or SL. You can't delete a losing trade. Your record is permanent and real.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title">Verified Statistics</div>
-      <div class="feature-desc">Win rate, profit factor, average R:R, and equity curve — all calculated from verified trades only. No cherry-picking.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">💰</div>
-      <div class="feature-title">Monetize Your Edge</div>
-      <div class="feature-desc">Build a following and run a paid signal room. Keep 100% of your subscriber revenue. We charge a flat monthly fee — your earnings are yours.</div>
-    </div>
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">+2.4R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">+1.8R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">−1R ✗ SL HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">+3.1R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">+2.0R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@xau_signals · XAU/USD BUY 3180 · <span class="loss">−1R ✗ SL HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">+2.7R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">+1.5R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">+2.4R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">+1.8R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">−1R ✗ SL HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">+3.1R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">+2.0R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@xau_signals · XAU/USD BUY 3180 · <span class="loss">−1R ✗ SL HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">+2.7R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">+1.5R ✓ TP HIT</span></div>
   </div>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-num">500M+</div>
-      <div class="stat-label">Retail Traders Worldwide</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">0</div>
-      <div class="stat-label">Platforms with Verified Records</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Automated Win/Loss Validation</div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-copy">© 2026 <span>Tradr</span> · jointradr.com</div>
-    <div class="footer-links">
-      <a href="mailto:hello@jointradr.com">Contact</a>
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-    </div>
-  </footer>
-
 </div>
 
-<script>
-  // Animate counter on load
-  function animateCounter() {
-    const el = document.getElementById('counter');
-    let start = 200;
-    const end = 247;
-    const duration = 1500;
-    const step = (end - start) / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= end) { el.textContent = end; clearInterval(timer); return; }
-      el.textContent = Math.floor(start);
-    }, 16);
-  }
-  setTimeout(animateCounter, 1200);
+<section class="problem reveal">
+  <div>
+    <div class="section-label">The Problem</div>
+    <h2 class="problem-title">The trading industry has a <span style="color:var(--green)">trust problem.</span></h2>
+    <p class="problem-body">Every day, thousands of traders post their "wins" on social media. Screenshots of profits. Highlighted calls. Claims of 90% win rates. But where are the losses? Hidden. Deleted. Never posted. There's no accountability, no verification, no way to know if someone is actually profitable.</p>
+    <p class="problem-body">Telegram signal groups charge hundreds per month with zero proof of performance. Instagram traders flex lambos while their followers blow accounts. The system is broken — and everyone knows it.</p>
+    <div class="problem-stat-row">
+      <div class="p-stat"><div class="p-stat-num">$3B+</div><div class="p-stat-label">Lost to fake signal sellers annually</div></div>
+      <div class="p-stat"><div class="p-stat-num">92%</div><div class="p-stat-label">Of signal sellers hide their losses</div></div>
+    </div>
+  </div>
+  <div class="problem-visual">
+    <div class="pv-label">What the industry looks like today</div>
+    <div class="fake-post">
+      <div class="fake-post-header">
+        <div class="fake-av"></div>
+        <div><div class="fake-name">@FakeGuruXYZ</div><div class="fake-handle">10,000 followers · "Pro Trader"</div></div>
+      </div>
+      <div class="fake-content">🔥 Another WIN! EUR/USD called perfectly. My students are printing money. DM me for my VIP group — only $299/month!</div>
+      <div class="fake-badge-row">
+        <span class="fake-badge badge-win">Shows: 47 wins</span>
+        <span class="fake-badge badge-hidden">Hides: 89 losses</span>
+        <span class="fake-badge badge-fake">Real win rate: 35%</span>
+      </div>
+    </div>
+    <div class="fake-post" style="opacity:.55">
+      <div class="fake-post-header">
+        <div class="fake-av" style="background:linear-gradient(135deg,#3a1a7a,#1a0f4d)"></div>
+        <div><div class="fake-name">@CryptoKingReal</div><div class="fake-handle">50,000 followers · "7-Figure Trader"</div></div>
+      </div>
+      <div class="fake-content">BTC to $200k. Trust me. Screenshot this. Join my Telegram for daily calls 🚀</div>
+      <div class="fake-badge-row">
+        <span class="fake-badge badge-fake">Zero verified trades</span>
+        <span class="fake-badge badge-hidden">No track record</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  // Waitlist submit
-  function submitWaitlist() {
-    const email = document.getElementById('email-input').value.trim();
+<section class="solution reveal">
+  <div class="solution-header">
+    <div class="section-label">The Solution</div>
+    <h2 class="solution-title">Accountability built<br/><span style="color:var(--green)">into the platform.</span></h2>
+    <p class="solution-sub">On Tradr, every trade is tracked from entry to exit. Automatically. The market decides the outcome — not the trader.</p>
+  </div>
+  <div class="flow">
+    <div class="flow-step"><div class="step-num">01 ——</div><div class="step-icon">📡</div><div class="step-title">Post Your Trade</div><div class="step-desc">Enter your market, direction, entry price, stop loss, and take profit. Live price is fetched automatically — you can't fake the entry.</div></div>
+    <div class="flow-step"><div class="step-num">02 ——</div><div class="step-icon">🔍</div><div class="step-title">Live Monitoring</div><div class="step-desc">Our engine monitors price 24/7 using real market data. Every open trade is tracked against live candle data including wicks.</div></div>
+    <div class="flow-step"><div class="step-num">03 ——</div><div class="step-icon">⚡</div><div class="step-title">Auto-Resolution</div><div class="step-desc">When price hits your TP or SL, the trade is automatically marked as WIN or LOSS. You cannot edit, delete, or modify it.</div></div>
+    <div class="flow-step"><div class="step-num">04 ——</div><div class="step-icon">📈</div><div class="step-title">Your Record Builds</div><div class="step-desc">Every trade adds to your permanent, tamper-proof track record. Win rate, profit factor, R:R — all verified. All public.</div></div>
+  </div>
+</section>
+
+<section class="features-section reveal">
+  <div class="features-header">
+    <div class="section-label">Features</div>
+    <h2 class="features-title">Everything a serious<br/>trader needs.</h2>
+    <p class="features-sub">Built for traders who are confident in their performance and want the world to know it.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Tamper-Proof Track Record</div><div class="feat-desc">Every trade is permanent. You can't delete a loss. You can't edit an entry after posting. The market decides — and the record is forever.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">Verified Statistics</div><div class="feat-desc">Win rate, profit factor, average R:R, max drawdown, and a full equity curve — calculated from verified trades only. No cherry-picking possible.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">🐦</div><div class="feat-title">Social Trading Feed</div><div class="feat-desc">Follow traders you trust. See their live signals in real time. Comment, react, and engage — like Twitter but built for trading with real accountability.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">💰</div><div class="feat-title">Signal Rooms</div><div class="feat-desc">Upgrade to Pro and run your own paid signal room. Your followers subscribe directly. You keep 100% of the revenue — we charge a flat monthly fee.</div><span class="feat-tag">Pro Feature</span></div>
+    <div class="feat"><div class="feat-icon">🎓</div><div class="feat-title">Creator Marketplace</div><div class="feat-desc">Sell trading courses, strategies, playbooks, and video content directly to your audience. Build a real trading business on top of your verified record.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">📱</div><div class="feat-title">Shareable Signal Cards</div><div class="feat-desc">Every trade generates a beautiful card optimized for Instagram Stories, Twitter/X, and WhatsApp. Share your wins and let Tradr grow organically.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">🏆</div><div class="feat-title">Global Leaderboard</div><div class="feat-desc">Weekly and all-time rankings based on verified performance. Climb the leaderboard and build a reputation that actually means something.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">🤝</div><div class="feat-title">Broker Integration</div><div class="feat-desc">Connect your broker and have your real trades automatically posted to Tradr. No manual entry — trade normally and let your record build itself.</div><span class="feat-tag feat-tag-soon">Coming V2</span></div>
+    <div class="feat"><div class="feat-icon">🏘️</div><div class="feat-title">Trading Communities</div><div class="feat-desc">Create or join exclusive trading communities. Gated access, shared analysis, group performance tracking — a full community platform for serious traders.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+  </div>
+</section>
+
+<section class="markets-section reveal">
+  <div class="section-label">Markets</div>
+  <h2 class="markets-title">Every market.<br/>One platform.</h2>
+  <p class="markets-sub">Trade what you know. Post what you trade. Tradr covers every major market.</p>
+  <div class="markets-grid">
+    <div class="market-card"><div class="market-emoji">💱</div><div class="market-name">Forex</div><div class="market-count">28+ pairs</div></div>
+    <div class="market-card"><div class="market-emoji">₿</div><div class="market-name">Crypto</div><div class="market-count">50+ pairs</div></div>
+    <div class="market-card"><div class="market-emoji">📈</div><div class="market-name">Stocks</div><div class="market-count">US Markets</div></div>
+    <div class="market-card"><div class="market-emoji">📊</div><div class="market-name">Indices</div><div class="market-count">Major indices</div></div>
+    <div class="market-card"><div class="market-emoji">🥇</div><div class="market-name">Commodities</div><div class="market-count">Gold, Silver, Oil</div></div>
+  </div>
+</section>
+
+<section class="monetize reveal">
+  <div class="monetize-inner">
+    <div>
+      <div class="section-label">Monetization</div>
+      <h2 class="monetize-title">Your edge.<br/><span style="color:var(--green)">Your income.</span></h2>
+      <p class="monetize-body">If you're a consistently profitable trader, Tradr turns your track record into a business. Build a following on the free tier, then unlock paid signal rooms and content sales when you're ready. We charge you a flat monthly fee — your subscriber revenue is 100% yours.</p>
+      <p class="monetize-body">A trader with 200 subscribers paying $50/month earns $10,000/month. You pay us $49/month. The math speaks for itself.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="price-card"><div class="pc-left"><div class="pc-name">Free</div><div class="pc-desc">Post trades · Build your record · Follow traders</div></div><div class="pc-price pc-free">$0</div></div>
+      <div class="price-card featured"><div class="pc-left"><div class="pc-name">Pro Trader</div><div class="pc-desc">Run a paid signal room · Keep 100% of revenue</div></div><div class="pc-price">$20<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
+      <div class="price-card"><div class="pc-left"><div class="pc-name">Creator</div><div class="pc-desc">Pro + sell courses, strategies & content</div></div><div class="pc-price">$49<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
+      <div class="price-card"><div class="pc-left"><div class="pc-name">Community</div><div class="pc-desc">Creator + host a full trading community</div></div><div class="pc-price">$99<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="roadmap reveal">
+  <div class="section-label">Roadmap</div>
+  <h2 class="roadmap-title">What's coming.</h2>
+  <p class="roadmap-sub">We're building in public. Here's exactly what's on the way.</p>
+  <div class="timeline">
+    <div class="tl-item active">
+      <div class="t-phase">Now — Q2 2026</div>
+      <div class="t-title">Foundation 🔨</div>
+      <div class="t-items">
+        <div class="t-feat">Signal posting with live price verification</div>
+        <div class="t-feat">Automatic trade resolution engine (win/loss)</div>
+        <div class="t-feat">Public profiles with verified track records</div>
+        <div class="t-feat">Social feed with follow system</div>
+        <div class="t-feat">Global leaderboard</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="t-phase">Q3 2026 — Launch</div>
+      <div class="t-title">Monetization 💰</div>
+      <div class="t-items">
+        <div class="t-feat">Pro signal rooms with Stripe integration</div>
+        <div class="t-feat">Shareable trade cards for social media</div>
+        <div class="t-feat">Creator marketplace for courses and strategies</div>
+        <div class="t-feat">Advanced stats and equity curve analytics</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="t-phase">Q4 2026</div>
+      <div class="t-title">Scale 🚀</div>
+      <div class="t-items">
+        <div class="t-feat">Broker API integrations (MT4/MT5, cTrader)</div>
+        <div class="t-feat">Mobile app (iOS + Android)</div>
+        <div class="t-feat">Trading communities and group analytics</div>
+        <div class="t-feat">Copy trading infrastructure</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="t-phase">2027+</div>
+      <div class="t-title">The Standard 🏆</div>
+      <div class="t-items">
+        <div class="t-feat">Direct exchange data feeds</div>
+        <div class="t-feat">Verified trader certification program</div>
+        <div class="t-feat">Prop firm partnerships</div>
+        <div class="t-feat">The global benchmark for trader credibility</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section reveal">
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">500M+</div><div class="stat-label">Retail traders worldwide across all markets</div></div>
+    <div class="stat-cell"><div class="stat-num">$3B+</div><div class="stat-label">Lost to unverified signal sellers every year</div></div>
+    <div class="stat-cell"><div class="stat-num">0</div><div class="stat-label">Existing platforms with tamper-proof track records</div></div>
+    <div class="stat-cell"><div class="stat-num">100%</div><div class="stat-label">Automated — the market decides, not the trader</div></div>
+  </div>
+</section>
+
+<section class="final-cta reveal">
+  <h2 class="cta-title">Be first.<br/><span class="green">Be verified.</span></h2>
+  <p class="cta-sub">Join the waitlist and be notified the moment Tradr launches. Early users get priority access and founding member status.</p>
+  <div class="cta-waitlist">
+    <div class="waitlist-form" id="wf2">
+      <input class="waitlist-input" type="email" id="e2" placeholder="Enter your email address" autocomplete="email" />
+      <button class="waitlist-btn" onclick="submitWL('e2','wf2','ws2')">Secure My Spot →</button>
+    </div>
+    <div class="waitlist-success" id="ws2">✅ &nbsp; You're on the list. See you at launch.</div>
+    <p class="waitlist-note">No spam. One email when we launch. Unsubscribe anytime.</p>
+    <div class="counter-row" style="justify-content:center">
+      <div class="avatars"><div class="av">M</div><div class="av">A</div><div class="av">J</div><div class="av">+</div></div>
+      <span class="counter-txt"><strong id="ctr2">247</strong> traders already waiting</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-copy">© 2026 <span>Tradr</span> · jointradr.com</div>
+    <div class="footer-tagline">The trading platform where your track record speaks for itself.</div>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:hello@jointradr.com">hello@jointradr.com</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+</footer>
+
+<script>
+  let count = 247;
+
+  function animateNum(id) {
+    const el = document.getElementById(id);
+    let s = 200;
+    const timer = setInterval(() => {
+      s += (247 - s) / 18;
+      if (s >= 246.5) { el.textContent = 247; clearInterval(timer); return; }
+      el.textContent = Math.floor(s);
+    }, 30);
+  }
+  setTimeout(() => { animateNum('ctr1'); animateNum('ctr2'); }, 1000);
+
+  function submitWL(inputId, formId, successId) {
+    const email = document.getElementById(inputId).value.trim();
     if (!email || !email.includes('@')) {
-      document.getElementById('email-input').style.borderColor = 'rgba(255,80,80,0.5)';
-      document.getElementById('email-input').focus();
+      document.getElementById(inputId).style.outline = '2px solid rgba(255,80,80,0.5)';
+      document.getElementById(inputId).focus();
       return;
     }
-    document.getElementById('waitlist-form').style.display = 'none';
-    const success = document.getElementById('waitlist-success');
-    success.style.display = 'flex';
-
-    // Increment counter
-    const counter = document.getElementById('counter');
-    counter.textContent = parseInt(counter.textContent) + 1;
+    document.getElementById(formId).style.display = 'none';
+    document.getElementById(successId).style.display = 'flex';
+    count++;
+    document.getElementById('ctr1').textContent = count;
+    document.getElementById('ctr2').textContent = count;
   }
 
-  // Enter key submits
-  document.getElementById('email-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') submitWaitlist();
-  });
+  document.getElementById('e1').addEventListener('keydown', e => { if(e.key==='Enter') submitWL('e1','wf1','ws1'); });
+  document.getElementById('e2').addEventListener('keydown', e => { if(e.key==='Enter') submitWL('e2','wf2','ws2'); });
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 
 </body>
