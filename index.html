@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tradr — Coming Soon</title>
+  <meta name="description" content="The trading platform where your track record speaks for itself. Join the waitlist." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00C896;
+      --green-dim: rgba(0,200,150,0.12);
+      --green-glow: rgba(0,200,150,0.25);
+      --bg: #060a08;
+      --bg2: #0c1410;
+      --surface: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --text: #e8f0ec;
+      --muted: rgba(232,240,236,0.45);
+      --mono: 'DM Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,150,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,150,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── RADIAL GLOW ── */
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,200,150,0.15) 0%, transparent 70%);
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    .glow-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,200,150,0.08) 0%, transparent 70%);
+      bottom: 100px; right: -100px;
+      animation: pulse 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    }
+    .glow-orb-2 {
+      animation: pulse2 10s ease-in-out infinite reverse;
+    }
+    @keyframes pulse2 {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(6,10,8,0.7);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px; height: 32px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .logo-text {
+      font-family: var(--sans);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      gap: 0;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--green);
+      opacity: 0.5;
+    }
+
+    .hero-title {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-title .accent {
+      color: var(--green);
+      display: block;
+    }
+
+    .hero-title .dim {
+      color: var(--muted);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 56px;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    /* ── WAITLIST FORM ── */
+    .waitlist {
+      width: 100%;
+      max-width: 460px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .waitlist-form {
+      display: flex;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 6px;
+      transition: border-color 0.3s;
+    }
+
+    .waitlist-form:focus-within {
+      border-color: rgba(0,200,150,0.4);
+      box-shadow: 0 0 0 4px var(--green-dim);
+    }
+
+    .waitlist-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .waitlist-input::placeholder {
+      color: var(--muted);
+    }
+
+    .waitlist-btn {
+      background: var(--green);
+      color: #060a08;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      letter-spacing: -0.3px;
+    }
+
+    .waitlist-btn:hover {
+      background: #00e0a8;
+      transform: scale(1.02);
+    }
+
+    .waitlist-btn:active {
+      transform: scale(0.98);
+    }
+
+    .waitlist-note {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    .waitlist-success {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: var(--green-dim);
+      border: 1px solid rgba(0,200,150,0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 48px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature {
+      background: var(--bg);
+      padding: 40px 36px;
+      transition: background 0.3s;
+    }
+
+    .feature:hover {
+      background: var(--bg2);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--green-dim);
+      border: 1px solid rgba(0,200,150,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      padding: 16px 0;
+      background: var(--bg2);
+    }
+
+    .ticker {
+      display: flex;
+      gap: 48px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .ticker-win { color: var(--green); }
+    .ticker-loss { color: #ff5e5e; }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-copy span { color: var(--green); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--green); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero { padding: 60px 24px 48px; }
+      .hero-title { letter-spacing: -2px; }
+      .stats { flex-wrap: wrap; gap: 24px; padding: 32px 24px; }
+      .stat { border-right: none; padding: 0 24px; }
+      .features { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-btn { width: 100%; padding: 14px; }
+    }
+
+    /* ── COUNTER ── */
+    .counter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .counter-avatars {
+      display: flex;
+    }
+
+    .counter-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      margin-left: -6px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .counter-avatar:first-child { margin-left: 0; background: #00C896; color: #060a08; }
+    .counter-avatar:nth-child(2) { background: #1a7a5e; color: white; }
+    .counter-avatar:nth-child(3) { background: #0f4d3b; color: white; }
+
+    .counter-text { color: var(--muted); }
+    .counter-text strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<div class="wrapper">
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">
+      <div class="logo-icon">📈</div>
+      <span class="logo-text">Tradr</span>
+    </a>
+    <span class="nav-badge">Coming Soon</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Launching Summer 2026</div>
+
+    <h1 class="hero-title">
+      <span class="dim">Your track record</span>
+      <span class="accent">speaks for itself.</span>
+    </h1>
+
+    <p class="hero-sub">
+      The social trading platform where every signal is verified automatically. 
+      No more fake gurus. Real wins. Real losses. Real accountability.
+    </p>
+
+    <!-- WAITLIST -->
+    <div class="waitlist">
+      <div class="waitlist-form" id="waitlist-form">
+        <input
+          class="waitlist-input"
+          type="email"
+          id="email-input"
+          placeholder="Enter your email address"
+          autocomplete="email"
+        />
+        <button class="waitlist-btn" onclick="submitWaitlist()">Join Waitlist</button>
+      </div>
+      <div class="waitlist-success" id="waitlist-success">
+        ✅ &nbsp; You're on the list! We'll notify you at launch.
+      </div>
+      <p class="waitlist-note">No spam. Just a one-time launch notification.</p>
+
+      <div class="counter-wrap">
+        <div class="counter-avatars">
+          <div class="counter-avatar">M</div>
+          <div class="counter-avatar">A</div>
+          <div class="counter-avatar">J</div>
+        </div>
+        <span class="counter-text"><strong id="counter">247</strong> traders already on the waitlist</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item"><span class="ticker-dot"></span> @momo7x · EUR/USD BUY · <span class="ticker-win">+2.4R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @andr3a · BTC/USD SELL · <span class="ticker-win">+1.8R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @traderboss · AAPL BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @forexking · GBP/USD SELL · <span class="ticker-win">+3.1R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @cryptomike · ETH/USD BUY · <span class="ticker-win">+2.0R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @signals99 · XAU/USD BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @momo7x · EUR/USD BUY · <span class="ticker-win">+2.4R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @andr3a · BTC/USD SELL · <span class="ticker-win">+1.8R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @traderboss · AAPL BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @forexking · GBP/USD SELL · <span class="ticker-win">+3.1R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @cryptomike · ETH/USD BUY · <span class="ticker-win">+2.0R ✓ TP HIT</span></div>
+      <div class="ticker-item"><span class="ticker-dot"></span> @signals99 · XAU/USD BUY · <span class="ticker-loss">−1R ✗ SL HIT</span></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Tamper-Proof Track Record</div>
+      <div class="feature-desc">Every trade is validated automatically when price hits TP or SL. You can't delete a losing trade. Your record is permanent and real.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Verified Statistics</div>
+      <div class="feature-desc">Win rate, profit factor, average R:R, and equity curve — all calculated from verified trades only. No cherry-picking.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💰</div>
+      <div class="feature-title">Monetize Your Edge</div>
+      <div class="feature-desc">Build a following and run a paid signal room. Keep 100% of your subscriber revenue. We charge a flat monthly fee — your earnings are yours.</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">500M+</div>
+      <div class="stat-label">Retail Traders Worldwide</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Platforms with Verified Records</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Automated Win/Loss Validation</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">© 2026 <span>Tradr</span> · jointradr.com</div>
+    <div class="footer-links">
+      <a href="mailto:hello@jointradr.com">Contact</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Animate counter on load
+  function animateCounter() {
+    const el = document.getElementById('counter');
+    let start = 200;
+    const end = 247;
+    const duration = 1500;
+    const step = (end - start) / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { el.textContent = end; clearInterval(timer); return; }
+      el.textContent = Math.floor(start);
+    }, 16);
+  }
+  setTimeout(animateCounter, 1200);
+
+  // Waitlist submit
+  function submitWaitlist() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('email-input').style.borderColor = 'rgba(255,80,80,0.5)';
+      document.getElementById('email-input').focus();
+      return;
+    }
+    document.getElementById('waitlist-form').style.display = 'none';
+    const success = document.getElementById('waitlist-success');
+    success.style.display = 'flex';
+
+    // Increment counter
+    const counter = document.getElementById('counter');
+    counter.textContent = parseInt(counter.textContent) + 1;
+  }
+
+  // Enter key submits
+  document.getElementById('email-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitWaitlist();
+  });
+</script>
+
+</body>
+</html>
