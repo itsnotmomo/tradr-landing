@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tradr — The Trading Platform Where Your Track Record Speaks for Itself</title>
-  <meta name="description" content="The social trading platform where every signal is verified automatically. No more fake gurus. Real wins. Real losses. Real accountability. Join the waitlist." />
+  <meta name="description" content="The social trading platform where every trade is verified automatically. No more fake gurus. Real wins. Real losses. Real accountability. Join the waitlist." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -213,33 +213,46 @@
     .markets-section { padding:100px 56px; border-top:1px solid var(--border); background:var(--bg2); }
     .markets-title { font-family:var(--sans); font-size:clamp(36px,4vw,52px); font-weight:800; letter-spacing:-2px; margin-bottom:16px; }
     .markets-sub { font-size:16px; color:var(--muted); margin-bottom:52px; font-weight:300; }
-    .markets-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .markets-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
     .market-card { background:var(--bg); border:1px solid var(--border); border-radius:14px; padding:24px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; transition:all .3s; }
     .market-card:hover { border-color:var(--border-green); background:var(--bg3); transform:translateY(-2px); }
     .market-emoji { font-size:28px; }
     .market-name { font-family:var(--sans); font-size:14px; font-weight:700; }
     .market-count { font-family:var(--mono); font-size:11px; color:var(--muted); }
+    .markets-more { display:flex; align-items:center; justify-content:center; gap:8px; padding:20px 0 0; font-family:var(--mono); font-size:12px; color:var(--green); letter-spacing:.1em; }
 
     .monetize { padding:120px 56px; border-top:1px solid var(--border); }
-    .monetize-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .monetize-inner { display:flex; flex-direction:column; align-items:center; text-align:center; max-width:720px; margin:0 auto; }
     .monetize-title { font-family:var(--sans); font-size:clamp(40px,5vw,60px); font-weight:800; letter-spacing:-2.5px; line-height:.95; margin-bottom:24px; }
     .monetize-body { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:24px; font-weight:300; }
-    .pricing-cards { display:flex; flex-direction:column; gap:12px; }
-    .price-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; transition:border-color .3s; }
-    .price-card:hover { border-color:var(--border-green); }
-    .price-card.featured { border-color:var(--border-green); background:var(--green-dim); }
-    .pc-left { display:flex; flex-direction:column; gap:4px; }
-    .pc-name { font-family:var(--sans); font-size:15px; font-weight:700; }
-    .pc-desc { font-size:13px; color:var(--muted); }
-    .pc-price { font-family:var(--sans); font-size:22px; font-weight:800; color:var(--green); letter-spacing:-1px; }
-    .pc-free { color:var(--muted); font-size:16px; }
+    .earn-highlights { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; margin-top:32px; width:100%; }
+    .earn-card { background:var(--bg); padding:36px 28px; text-align:center; transition:background .3s; }
+    .earn-card:hover { background:var(--bg2); }
+    .earn-icon { font-size:28px; margin-bottom:16px; }
+    .earn-title { font-family:var(--sans); font-size:16px; font-weight:700; margin-bottom:10px; letter-spacing:-.3px; }
+    .earn-desc { font-size:13px; color:var(--muted); line-height:1.6; }
 
-    .roadmap { padding:120px 56px; border-top:1px solid var(--border); background:var(--bg2); }
+    .learn-section { padding:120px 56px; border-top:1px solid var(--border); background:var(--bg2); }
+    .learn-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .learn-title { font-family:var(--sans); font-size:clamp(36px,4vw,52px); font-weight:800; letter-spacing:-2px; line-height:1; margin-bottom:24px; }
+    .learn-body { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:24px; font-weight:300; }
+    .learn-cards { display:flex; flex-direction:column; gap:12px; }
+    .learn-card { background:var(--bg); border:1px solid var(--border); border-radius:14px; padding:22px 24px; display:flex; align-items:flex-start; gap:16px; transition:all .3s; }
+    .learn-card:hover { border-color:var(--border-green); background:var(--bg3); }
+    .learn-card-icon { width:42px; height:42px; background:var(--green-dim); border:1px solid var(--border-green); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .learn-card-content { display:flex; flex-direction:column; gap:4px; }
+    .learn-card-title { font-family:var(--sans); font-size:15px; font-weight:700; letter-spacing:-.3px; }
+    .learn-card-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+    .learn-card-tag { display:inline-block; font-family:var(--mono); font-size:10px; padding:3px 10px; border-radius:100px; margin-top:8px; letter-spacing:.08em; }
+    .tag-sandbox { background:rgba(0,150,255,.1); color:#4da6ff; border:1px solid rgba(0,150,255,.2); }
+    .tag-library { background:var(--green-dim); color:var(--green); border:1px solid var(--border-green); }
+
+    .roadmap { padding:120px 56px; border-top:1px solid var(--border); }
     .roadmap-title { font-family:var(--sans); font-size:clamp(40px,5vw,64px); font-weight:800; letter-spacing:-2.5px; margin-bottom:16px; }
     .roadmap-sub { font-size:17px; color:var(--muted); max-width:520px; margin-bottom:64px; line-height:1.6; font-weight:300; }
     .timeline { display:flex; flex-direction:column; gap:0; border-left:1px solid var(--border); margin-left:20px; }
     .tl-item { position:relative; padding:0 0 48px 40px; }
-    .tl-item::before { content:''; position:absolute; left:-5px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--border); border:2px solid var(--bg2); }
+    .tl-item::before { content:''; position:absolute; left:-5px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--border); border:2px solid var(--bg); }
     .tl-item.active::before { background:var(--green); box-shadow:0 0 0 4px var(--green-dim); }
     .t-phase { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; margin-bottom:8px; }
     .t-title { font-family:var(--sans); font-size:20px; font-weight:700; letter-spacing:-.5px; margin-bottom:12px; }
@@ -247,9 +260,9 @@
     .t-feat { font-size:14px; color:var(--muted); display:flex; align-items:center; gap:8px; }
     .t-feat::before { content:'→'; color:var(--green); opacity:.6; flex-shrink:0; }
 
-    .stats-section { padding:80px 56px; border-top:1px solid var(--border); }
+    .stats-section { padding:80px 56px; border-top:1px solid var(--border); background:var(--bg2); }
     .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:20px; overflow:hidden; }
-    .stat-cell { background:var(--bg); padding:40px 32px; }
+    .stat-cell { background:var(--bg2); padding:40px 32px; }
     .stat-num { font-family:var(--sans); font-size:clamp(32px,4vw,48px); font-weight:800; color:var(--green); letter-spacing:-2px; line-height:1; margin-bottom:8px; }
     .stat-label { font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; line-height:1.5; }
 
@@ -279,12 +292,13 @@
     @media(max-width:900px) {
       nav { padding:20px 24px; }
       .nav-right .nav-badge { display:none; }
-      .problem, .monetize-inner { grid-template-columns:1fr; gap:48px; }
+      .problem, .learn-inner { grid-template-columns:1fr; gap:48px; }
       .flow { grid-template-columns:1fr 1fr; }
       .features-grid { grid-template-columns:1fr; }
-      .markets-grid { grid-template-columns:repeat(3,1fr); }
+      .markets-grid { grid-template-columns:repeat(2,1fr); }
       .stats-grid { grid-template-columns:repeat(2,1fr); }
-      .problem, .solution, .features-section, .monetize, .roadmap, .markets-section, .stats-section, .final-cta { padding:72px 24px; }
+      .earn-highlights { grid-template-columns:1fr; }
+      .problem, .solution, .features-section, .monetize, .roadmap, .markets-section, .stats-section, .final-cta, .learn-section { padding:72px 24px; }
       footer { flex-direction:column; gap:20px; text-align:center; padding:32px 24px; }
       .cta-title { letter-spacing:-2px; }
       .waitlist-form { flex-direction:column; }
@@ -310,7 +324,7 @@
     <span class="logo-name">Tradr</span>
   </a>
   <div class="nav-right">
-    <span class="nav-badge">Coming Summer 2026</span>
+    <span class="nav-badge">Coming Soon</span>
     <a class="nav-cta" href="#waitlist">Join Waitlist</a>
   </div>
 </nav>
@@ -323,9 +337,9 @@
     <span class="line3">Always.</span>
   </h1>
   <p class="hero-sub">
-    Tradr is the social trading platform where every signal is verified automatically. 
+    Tradr is the social trading platform where every trade is verified automatically. 
     Post your trades. Build your record. Prove you're profitable. 
-    No more fake gurus — just verifiable truth.
+    No more fake gurus — just real, verifiable results.
   </p>
   <div class="waitlist-wrap" id="waitlist">
     <div class="waitlist-form" id="wf1">
@@ -345,22 +359,22 @@
 
 <div class="ticker-wrap">
   <div class="ticker">
-    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">+2.4R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">+1.8R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">−1R ✗ SL HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">+3.1R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">+2.0R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@xau_signals · XAU/USD BUY 3180 · <span class="loss">−1R ✗ SL HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">+2.7R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">+1.5R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">+2.4R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">+1.8R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">−1R ✗ SL HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">+3.1R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">+2.0R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@xau_signals · XAU/USD BUY 3180 · <span class="loss">−1R ✗ SL HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">+2.7R ✓ TP HIT</span></div>
-    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">+1.5R ✓ TP HIT</span></div>
+    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">LOSS ✗</span></div>
+    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@xau_trades · XAU/USD BUY 3180 · <span class="loss">LOSS ✗</span></div>
+    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@momo7x · EUR/USD BUY 1.08234 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@andr3a · BTC/USD SELL 84500 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@trader_k · AAPL BUY 218.45 · <span class="loss">LOSS ✗</span></div>
+    <div class="t-item"><span class="t-dot"></span>@forexking · GBP/USD SELL 1.26540 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@cryptomike · ETH/USD BUY 2152 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@xau_trades · XAU/USD BUY 3180 · <span class="loss">LOSS ✗</span></div>
+    <div class="t-item"><span class="t-dot"></span>@sol_trader · SOL/USD BUY 132.45 · <span class="win">WIN ✓</span></div>
+    <div class="t-item"><span class="t-dot"></span>@nvda_calls · NVDA BUY 875.20 · <span class="win">WIN ✓</span></div>
   </div>
 </div>
 
@@ -368,11 +382,11 @@
   <div>
     <div class="section-label">The Problem</div>
     <h2 class="problem-title">The trading industry has a <span style="color:var(--green)">trust problem.</span></h2>
-    <p class="problem-body">Every day, thousands of traders post their "wins" on social media. Screenshots of profits. Highlighted calls. Claims of 90% win rates. But where are the losses? Hidden. Deleted. Never posted. There's no accountability, no verification, no way to know if someone is actually profitable.</p>
-    <p class="problem-body">Telegram signal groups charge hundreds per month with zero proof of performance. Instagram traders flex lambos while their followers blow accounts. The system is broken — and everyone knows it.</p>
+    <p class="problem-body">Every day, traders post their "wins" on social media. Screenshots of profits. Claims of huge win rates. But where are the losses? Hidden. Deleted. Never posted. There's no accountability, no verification, and no way to know if someone is actually profitable.</p>
+    <p class="problem-body">Telegram groups charge hundreds per month with zero proof. Instagram traders flex expensive cars while their followers lose money. The system is broken — and everyone knows it.</p>
     <div class="problem-stat-row">
-      <div class="p-stat"><div class="p-stat-num">$3B+</div><div class="p-stat-label">Lost to fake signal sellers annually</div></div>
-      <div class="p-stat"><div class="p-stat-num">92%</div><div class="p-stat-label">Of signal sellers hide their losses</div></div>
+      <div class="p-stat"><div class="p-stat-num">$3B+</div><div class="p-stat-label">Lost to fake traders annually</div></div>
+      <div class="p-stat"><div class="p-stat-num">92%</div><div class="p-stat-label">Of trade sellers hide losses</div></div>
     </div>
   </div>
   <div class="problem-visual">
@@ -405,63 +419,99 @@
 
 <section class="solution reveal">
   <div class="solution-header">
-    <div class="section-label">The Solution</div>
-    <h2 class="solution-title">Accountability built<br/><span style="color:var(--green)">into the platform.</span></h2>
-    <p class="solution-sub">On Tradr, every trade is tracked from entry to exit. Automatically. The market decides the outcome — not the trader.</p>
+    <div class="section-label">How It Works</div>
+    <h2 class="solution-title">Simple. Transparent.<br/><span style="color:var(--green)">Fully verified.</span></h2>
+    <p class="solution-sub">On Tradr, every trade is tracked from start to finish. Automatically. The market decides the outcome — not the trader. Here's how it works.</p>
   </div>
   <div class="flow">
-    <div class="flow-step"><div class="step-num">01 ——</div><div class="step-icon">📡</div><div class="step-title">Post Your Trade</div><div class="step-desc">Enter your market, direction, entry price, stop loss, and take profit. Live price is fetched automatically — you can't fake the entry.</div></div>
-    <div class="flow-step"><div class="step-num">02 ——</div><div class="step-icon">🔍</div><div class="step-title">Live Monitoring</div><div class="step-desc">Our engine monitors price 24/7 using real market data. Every open trade is tracked against live candle data including wicks.</div></div>
-    <div class="flow-step"><div class="step-num">03 ——</div><div class="step-icon">⚡</div><div class="step-title">Auto-Resolution</div><div class="step-desc">When price hits your TP or SL, the trade is automatically marked as WIN or LOSS. You cannot edit, delete, or modify it.</div></div>
-    <div class="flow-step"><div class="step-num">04 ——</div><div class="step-icon">📈</div><div class="step-title">Your Record Builds</div><div class="step-desc">Every trade adds to your permanent, tamper-proof track record. Win rate, profit factor, R:R — all verified. All public.</div></div>
+    <div class="flow-step"><div class="step-num">01 ——</div><div class="step-icon">📡</div><div class="step-title">Post Your Trade</div><div class="step-desc">Pick your market, choose a direction (buy or sell), and set your entry price, stop loss, and take profit. The live price is pulled automatically — no way to fake it.</div></div>
+    <div class="flow-step"><div class="step-num">02 ——</div><div class="step-icon">🔍</div><div class="step-title">We Watch the Market</div><div class="step-desc">Our system monitors the price around the clock using real market data. Every open trade is tracked live until it hits one of your levels.</div></div>
+    <div class="flow-step"><div class="step-num">03 ——</div><div class="step-icon">⚡</div><div class="step-title">Win or Loss — Automatically</div><div class="step-desc">When the price hits your take profit or stop loss, the trade is marked as a WIN or LOSS. You can't edit it, delete it, or change it after the fact.</div></div>
+    <div class="flow-step"><div class="step-num">04 ——</div><div class="step-icon">📈</div><div class="step-title">Your Record Builds</div><div class="step-desc">Every trade adds to your permanent track record. Your win rate, performance, and history — all verified, all public. Your results tell the story.</div></div>
   </div>
 </section>
 
 <section class="features-section reveal">
   <div class="features-header">
     <div class="section-label">Features</div>
-    <h2 class="features-title">Everything a serious<br/>trader needs.</h2>
-    <p class="features-sub">Built for traders who are confident in their performance and want the world to know it.</p>
+    <h2 class="features-title">Everything you need<br/>to trade with confidence.</h2>
+    <p class="features-sub">Whether you're just getting started or you're a seasoned trader, Tradr gives you the tools to prove your skill.</p>
   </div>
   <div class="features-grid">
-    <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Tamper-Proof Track Record</div><div class="feat-desc">Every trade is permanent. You can't delete a loss. You can't edit an entry after posting. The market decides — and the record is forever.</div><span class="feat-tag">Core Feature</span></div>
-    <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">Verified Statistics</div><div class="feat-desc">Win rate, profit factor, average R:R, max drawdown, and a full equity curve — calculated from verified trades only. No cherry-picking possible.</div><span class="feat-tag">Core Feature</span></div>
-    <div class="feat"><div class="feat-icon">🐦</div><div class="feat-title">Social Trading Feed</div><div class="feat-desc">Follow traders you trust. See their live signals in real time. Comment, react, and engage — like Twitter but built for trading with real accountability.</div><span class="feat-tag">Core Feature</span></div>
-    <div class="feat"><div class="feat-icon">💰</div><div class="feat-title">Signal Rooms</div><div class="feat-desc">Upgrade to Pro and run your own paid signal room. Your followers subscribe directly. You keep 100% of the revenue — we charge a flat monthly fee.</div><span class="feat-tag">Pro Feature</span></div>
-    <div class="feat"><div class="feat-icon">🎓</div><div class="feat-title">Creator Marketplace</div><div class="feat-desc">Sell trading courses, strategies, playbooks, and video content directly to your audience. Build a real trading business on top of your verified record.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
-    <div class="feat"><div class="feat-icon">📱</div><div class="feat-title">Shareable Signal Cards</div><div class="feat-desc">Every trade generates a beautiful card optimized for Instagram Stories, Twitter/X, and WhatsApp. Share your wins and let Tradr grow organically.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Tamper-Proof Track Record</div><div class="feat-desc">Every trade is permanent. You can't delete a loss or edit an entry after posting. The market decides the result — and the record stays forever.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">Verified Stats</div><div class="feat-desc">Your win rate, performance history, and overall results — all calculated from real, verified trades. No cherry-picking. No hiding bad days.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">🐦</div><div class="feat-title">Social Trading Feed</div><div class="feat-desc">Follow traders you trust. See their trades in real time. Comment, react, and engage — like a social network built specifically for trading with real accountability.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">💰</div><div class="feat-title">Paid Trade Rooms</div><div class="feat-desc">Build an audience with your verified results, then open a paid trade room. Your followers subscribe to see your trades — and you earn real money doing what you love.</div><span class="feat-tag">Coming at Launch</span></div>
     <div class="feat"><div class="feat-icon">🏆</div><div class="feat-title">Global Leaderboard</div><div class="feat-desc">Weekly and all-time rankings based on verified performance. Climb the leaderboard and build a reputation that actually means something.</div><span class="feat-tag">Core Feature</span></div>
-    <div class="feat"><div class="feat-icon">🤝</div><div class="feat-title">Broker Integration</div><div class="feat-desc">Connect your broker and have your real trades automatically posted to Tradr. No manual entry — trade normally and let your record build itself.</div><span class="feat-tag feat-tag-soon">Coming V2</span></div>
-    <div class="feat"><div class="feat-icon">🏘️</div><div class="feat-title">Trading Communities</div><div class="feat-desc">Create or join exclusive trading communities. Gated access, shared analysis, group performance tracking — a full community platform for serious traders.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">📱</div><div class="feat-title">Shareable Trade Cards</div><div class="feat-desc">Every trade generates a beautiful card you can share on Instagram, X, WhatsApp — anywhere. Share your wins and let your track record do the talking.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">🧪</div><div class="feat-title">Sandbox Mode</div><div class="feat-desc">New to trading? Practice in sandbox mode. Post trades, learn the platform, and build confidence — without any of it affecting your real stats or record.</div><span class="feat-tag">Core Feature</span></div>
+    <div class="feat"><div class="feat-icon">🤝</div><div class="feat-title">Broker Integration</div><div class="feat-desc">Connect your broker and have your real trades automatically posted to Tradr. No manual entry needed — just trade normally and your record builds itself.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
+    <div class="feat"><div class="feat-icon">🏘️</div><div class="feat-title">Trading Communities</div><div class="feat-desc">Create or join trading communities. Share ideas, discuss markets, and track group performance — a full community experience for traders at every level.</div><span class="feat-tag feat-tag-soon">Coming Soon</span></div>
   </div>
 </section>
 
 <section class="markets-section reveal">
   <div class="section-label">Markets</div>
   <h2 class="markets-title">Every market.<br/>One platform.</h2>
-  <p class="markets-sub">Trade what you know. Post what you trade. Tradr covers every major market.</p>
+  <p class="markets-sub">Trade what you know. Post what you trade. Tradr covers the markets you care about — and we're always adding more.</p>
   <div class="markets-grid">
-    <div class="market-card"><div class="market-emoji">💱</div><div class="market-name">Forex</div><div class="market-count">28+ pairs</div></div>
-    <div class="market-card"><div class="market-emoji">₿</div><div class="market-name">Crypto</div><div class="market-count">50+ pairs</div></div>
-    <div class="market-card"><div class="market-emoji">📈</div><div class="market-name">Stocks</div><div class="market-count">US Markets</div></div>
+    <div class="market-card"><div class="market-emoji">💱</div><div class="market-name">Forex</div><div class="market-count">Major & minor pairs</div></div>
+    <div class="market-card"><div class="market-emoji">₿</div><div class="market-name">Crypto</div><div class="market-count">Top coins & altcoins</div></div>
+    <div class="market-card"><div class="market-emoji">📈</div><div class="market-name">Stocks</div><div class="market-count">US & global markets</div></div>
     <div class="market-card"><div class="market-emoji">📊</div><div class="market-name">Indices</div><div class="market-count">Major indices</div></div>
-    <div class="market-card"><div class="market-emoji">🥇</div><div class="market-name">Commodities</div><div class="market-count">Gold, Silver, Oil</div></div>
+    <div class="market-card"><div class="market-emoji">🥇</div><div class="market-name">Commodities</div><div class="market-count">Gold, silver, oil & more</div></div>
+    <div class="market-card"><div class="market-emoji">📑</div><div class="market-name">Futures</div><div class="market-count">Key contracts</div></div>
+    <div class="market-card" style="border-style:dashed;opacity:.6"><div class="market-emoji">🔜</div><div class="market-name">More Coming</div><div class="market-count">New markets regularly</div></div>
   </div>
 </section>
 
 <section class="monetize reveal">
   <div class="monetize-inner">
-    <div>
-      <div class="section-label">Monetization</div>
-      <h2 class="monetize-title">Your edge.<br/><span style="color:var(--green)">Your income.</span></h2>
-      <p class="monetize-body">If you're a consistently profitable trader, Tradr turns your track record into a business. Build a following on the free tier, then unlock paid signal rooms and content sales when you're ready. We charge you a flat monthly fee — your subscriber revenue is 100% yours.</p>
-      <p class="monetize-body">A trader with 200 subscribers paying $50/month earns $10,000/month. You pay us $49/month. The math speaks for itself.</p>
+    <div class="section-label">Earn Money</div>
+    <h2 class="monetize-title">Your skill.<br/><span style="color:var(--green)">Your income.</span></h2>
+    <p class="monetize-body">If you're a profitable trader, Tradr turns your track record into a real business. Build a following with your verified results, open a paid trade room, and earn money from people who trust your performance — because it's all proven on the platform.</p>
+    <p class="monetize-body">No need to sell courses or create content (though you can if you want). Just trade well, and let your results attract an audience willing to pay for access to your trades.</p>
+    <div class="earn-highlights">
+      <div class="earn-card"><div class="earn-icon">🏠</div><div class="earn-title">Paid Trade Rooms</div><div class="earn-desc">Open a room, set your price, and let subscribers follow your trades in real time. Your verified results are your marketing.</div></div>
+      <div class="earn-card"><div class="earn-icon">📚</div><div class="earn-title">Sell Your Knowledge</div><div class="earn-desc">Create and sell courses, strategies, and trading content directly on the platform. Build a full trading business around your expertise.</div></div>
+      <div class="earn-card"><div class="earn-icon">📈</div><div class="earn-title">Grow Your Brand</div><div class="earn-desc">Your verified track record is your resume. The better you trade, the more followers you attract, and the more you can earn.</div></div>
     </div>
-    <div class="pricing-cards">
-      <div class="price-card"><div class="pc-left"><div class="pc-name">Free</div><div class="pc-desc">Post trades · Build your record · Follow traders</div></div><div class="pc-price pc-free">$0</div></div>
-      <div class="price-card featured"><div class="pc-left"><div class="pc-name">Pro Trader</div><div class="pc-desc">Run a paid signal room · Keep 100% of revenue</div></div><div class="pc-price">$20<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
-      <div class="price-card"><div class="pc-left"><div class="pc-name">Creator</div><div class="pc-desc">Pro + sell courses, strategies & content</div></div><div class="pc-price">$49<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
-      <div class="price-card"><div class="pc-left"><div class="pc-name">Community</div><div class="pc-desc">Creator + host a full trading community</div></div><div class="pc-price">$99<span style="font-size:14px;color:var(--muted)">/mo</span></div></div>
+  </div>
+</section>
+
+<section class="learn-section reveal">
+  <div class="learn-inner">
+    <div>
+      <div class="section-label">For Beginners</div>
+      <h2 class="learn-title">New to trading?<br/><span style="color:var(--green)">We've got you.</span></h2>
+      <p class="learn-body">Tradr isn't just for experienced traders. We're building a Learning Library with everything you need to understand the basics — what trading is, how markets work, and how to get started with confidence.</p>
+      <p class="learn-body">And when you're ready to practice, Sandbox Mode lets you post trades and use the full platform without anything counting toward your real stats. Learn at your own pace, risk-free.</p>
+    </div>
+    <div class="learn-cards">
+      <div class="learn-card">
+        <div class="learn-card-icon">📖</div>
+        <div class="learn-card-content">
+          <div class="learn-card-title">Learning Library</div>
+          <div class="learn-card-desc">Beginner-friendly guides that explain trading from scratch — markets, terminology, how trades work, and everything in between. No jargon overload.</div>
+          <span class="learn-card-tag tag-library">Included Free</span>
+        </div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-card-icon">🧪</div>
+        <div class="learn-card-content">
+          <div class="learn-card-title">Sandbox Mode</div>
+          <div class="learn-card-desc">Practice posting trades on the real platform with real market data — but none of it impacts your stats or public record. Perfect for learning the ropes.</div>
+          <span class="learn-card-tag tag-sandbox">No Risk · No Impact on Stats</span>
+        </div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-card-icon">🎯</div>
+        <div class="learn-card-content">
+          <div class="learn-card-title">Learn by Watching</div>
+          <div class="learn-card-desc">Follow top-performing traders and see exactly what they're trading, when, and how it turns out. The best way to learn is by watching people who are verified profitable.</div>
+          <span class="learn-card-tag tag-library">Free for Everyone</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -469,47 +519,48 @@
 <section class="roadmap reveal">
   <div class="section-label">Roadmap</div>
   <h2 class="roadmap-title">What's coming.</h2>
-  <p class="roadmap-sub">We're building in public. Here's exactly what's on the way.</p>
+  <p class="roadmap-sub">We're building in public. Here's what's on the way.</p>
   <div class="timeline">
     <div class="tl-item active">
-      <div class="t-phase">Now — Q2 2026</div>
+      <div class="t-phase">Now — Building</div>
       <div class="t-title">Foundation 🔨</div>
       <div class="t-items">
-        <div class="t-feat">Signal posting with live price verification</div>
-        <div class="t-feat">Automatic trade resolution engine (win/loss)</div>
+        <div class="t-feat">Trade posting with live price verification</div>
+        <div class="t-feat">Automatic trade resolution (win/loss)</div>
         <div class="t-feat">Public profiles with verified track records</div>
         <div class="t-feat">Social feed with follow system</div>
         <div class="t-feat">Global leaderboard</div>
+        <div class="t-feat">Learning Library & Sandbox Mode</div>
       </div>
     </div>
     <div class="tl-item">
-      <div class="t-phase">Q3 2026 — Launch</div>
+      <div class="t-phase">Launch</div>
       <div class="t-title">Monetization 💰</div>
       <div class="t-items">
-        <div class="t-feat">Pro signal rooms with Stripe integration</div>
+        <div class="t-feat">Paid trade rooms</div>
         <div class="t-feat">Shareable trade cards for social media</div>
-        <div class="t-feat">Creator marketplace for courses and strategies</div>
-        <div class="t-feat">Advanced stats and equity curve analytics</div>
+        <div class="t-feat">Creator marketplace for courses & strategies</div>
+        <div class="t-feat">Advanced stats & performance analytics</div>
       </div>
     </div>
     <div class="tl-item">
-      <div class="t-phase">Q4 2026</div>
+      <div class="t-phase">Post-Launch</div>
       <div class="t-title">Scale 🚀</div>
       <div class="t-items">
-        <div class="t-feat">Broker API integrations (MT4/MT5, cTrader)</div>
+        <div class="t-feat">Broker integrations (MT4/MT5, cTrader)</div>
         <div class="t-feat">Mobile app (iOS + Android)</div>
-        <div class="t-feat">Trading communities and group analytics</div>
-        <div class="t-feat">Copy trading infrastructure</div>
+        <div class="t-feat">Trading communities & group analytics</div>
+        <div class="t-feat">Copy trading</div>
       </div>
     </div>
     <div class="tl-item">
-      <div class="t-phase">2027+</div>
+      <div class="t-phase">The Future</div>
       <div class="t-title">The Standard 🏆</div>
       <div class="t-items">
         <div class="t-feat">Direct exchange data feeds</div>
-        <div class="t-feat">Verified trader certification program</div>
+        <div class="t-feat">Verified trader certification</div>
         <div class="t-feat">Prop firm partnerships</div>
-        <div class="t-feat">The global benchmark for trader credibility</div>
+        <div class="t-feat">More markets & asset classes</div>
       </div>
     </div>
   </div>
@@ -518,15 +569,15 @@
 <section class="stats-section reveal">
   <div class="stats-grid">
     <div class="stat-cell"><div class="stat-num">500M+</div><div class="stat-label">Retail traders worldwide across all markets</div></div>
-    <div class="stat-cell"><div class="stat-num">$3B+</div><div class="stat-label">Lost to unverified signal sellers every year</div></div>
-    <div class="stat-cell"><div class="stat-num">0</div><div class="stat-label">Existing platforms with tamper-proof track records</div></div>
+    <div class="stat-cell"><div class="stat-num">$3B+</div><div class="stat-label">Lost to unverified trade sellers every year</div></div>
+    <div class="stat-cell"><div class="stat-num">0</div><div class="stat-label">Platforms with fully tamper-proof track records</div></div>
     <div class="stat-cell"><div class="stat-num">100%</div><div class="stat-label">Automated — the market decides, not the trader</div></div>
   </div>
 </section>
 
 <section class="final-cta reveal">
   <h2 class="cta-title">Be first.<br/><span class="green">Be verified.</span></h2>
-  <p class="cta-sub">Join the waitlist and be notified the moment Tradr launches. Early users get priority access and founding member status.</p>
+  <p class="cta-sub">Join the waitlist and be the first to know when Tradr launches. Early users get priority access and founding member status.</p>
   <div class="cta-waitlist">
     <div class="waitlist-form" id="wf2">
       <input class="waitlist-input" type="email" id="e2" placeholder="Enter your email address" autocomplete="email" />
@@ -547,7 +598,7 @@
     <div class="footer-tagline">The trading platform where your track record speaks for itself.</div>
   </div>
   <div class="footer-links">
-    <a href="mailto:hello@jointradr.com">hello@jointradr.com</a>
+    <a href="#">Contact</a>
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
   </div>
@@ -586,7 +637,7 @@
 
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 
