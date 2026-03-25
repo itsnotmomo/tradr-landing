@@ -28,6 +28,27 @@
       --mono: 'DM Mono', monospace;
       --sans: 'Syne', sans-serif;
       --body: 'DM Sans', sans-serif;
+      --nav-bg: rgba(6,10,8,0.85);
+      --green-dark: #00a87e;
+      --cta-text: #060a08;
+    }
+
+    [data-theme="light"] {
+      --green: #00a87e;
+      --green-dim: rgba(0,168,126,0.08);
+      --green-glow: rgba(0,168,126,0.15);
+      --red: #e53e3e;
+      --bg: #f5f7f6;
+      --bg2: #edf0ee;
+      --bg3: #e4e8e6;
+      --surface: rgba(0,0,0,0.03);
+      --border: rgba(0,0,0,0.08);
+      --border-green: rgba(0,168,126,0.25);
+      --text: #1a2b23;
+      --muted: rgba(26,43,35,0.55);
+      --muted2: rgba(26,43,35,0.3);
+      --nav-bg: rgba(245,247,246,0.88);
+      --cta-text: #ffffff;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,6 +59,7 @@
       font-family: var(--body);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background .4s, color .4s;
     }
 
     body::before {
@@ -65,8 +87,9 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 24px 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(6,10,8,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(20px);
+      transition: background .4s, border-color .4s;
     }
 
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -75,7 +98,7 @@
 
     .nav-right { display: flex; align-items: center; gap: 20px; }
     .nav-badge { font-family: var(--mono); font-size: 10px; color: var(--green); border: 1px solid var(--border-green); padding: 5px 12px; border-radius: 100px; letter-spacing: 0.12em; text-transform: uppercase; }
-    .nav-cta { background: var(--green); color: #060a08; font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 8px; text-decoration: none; transition: all 0.2s; letter-spacing: -0.2px; }
+    .nav-cta { background: var(--green); color: var(--cta-text); font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 9px 20px; border-radius: 8px; text-decoration: none; transition: all 0.2s; letter-spacing: -0.2px; }
     .nav-cta:hover { background: #00e0a8; transform: scale(1.03); }
 
     section { position: relative; z-index: 1; }
@@ -124,7 +147,7 @@
     }
     .waitlist-input::placeholder { color: var(--muted2); }
     .waitlist-btn {
-      background: var(--green); color: #060a08; border: none; border-radius: 10px;
+      background: var(--green); color: var(--cta-text); border: none; border-radius: 10px;
       padding: 12px 22px; font-family: var(--sans); font-size: 14px; font-weight: 700;
       cursor: pointer; white-space: nowrap; transition: all .2s; letter-spacing: -.3px;
     }
@@ -285,6 +308,39 @@
     .footer-links a { font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none; transition:color .2s; }
     .footer-links a:hover { color:var(--green); }
 
+    /* Theme toggle */
+    .theme-toggle {
+      width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      transition: all .25s; flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--border-green); background: var(--green-dim); }
+    .theme-toggle .icon-sun, .theme-toggle .icon-moon { pointer-events:none; }
+    .theme-toggle .icon-sun { display:none; }
+    [data-theme="light"] .theme-toggle .icon-sun { display:block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display:none; }
+
+    /* Light mode specific overrides */
+    [data-theme="light"] body::before {
+      background-image:
+        linear-gradient(rgba(0,168,126,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,168,126,0.05) 1px, transparent 1px);
+    }
+    [data-theme="light"] .glow-1 { background: radial-gradient(circle, rgba(0,168,126,0.08) 0%, transparent 70%); }
+    [data-theme="light"] .glow-2 { background: radial-gradient(circle, rgba(0,168,126,0.05) 0%, transparent 70%); }
+    [data-theme="light"] .glow-3 { background: radial-gradient(circle, rgba(0,168,126,0.04) 0%, transparent 70%); }
+    [data-theme="light"] .av:first-child { background:#00a87e; color:#fff; }
+    [data-theme="light"] .av:nth-child(2) { background:#3dbf9a; color:#fff; }
+    [data-theme="light"] .av:nth-child(3) { background:#8dd4be; color:#1a2b23; }
+    [data-theme="light"] .av:nth-child(4) { background:#c8e8dd; color:#5a6e64; }
+    [data-theme="light"] .fake-av { background:linear-gradient(135deg, #3dbf9a, #8dd4be); }
+    [data-theme="light"] .fake-post:nth-child(3) .fake-av { background:linear-gradient(135deg, #7a6ad4, #a89be0); }
+    [data-theme="light"] .final-cta { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,168,126,0.06) 0%, transparent 70%); }
+    [data-theme="light"] .waitlist-form { background: rgba(0,0,0,0.03); }
+    [data-theme="light"] .hero-title .line1 { color: rgba(26,43,35,0.4); }
+    [data-theme="light"] .hero-title .line3 { color: var(--text); }
+
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
     .reveal { opacity:0; transform:translateY(32px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
@@ -325,6 +381,10 @@
   </a>
   <div class="nav-right">
     <span class="nav-badge">Coming Soon</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+      <span class="icon-moon">🌙</span>
+      <span class="icon-sun">☀️</span>
+    </button>
     <a class="nav-cta" href="#waitlist">Join Waitlist</a>
   </div>
 </nav>
@@ -605,6 +665,20 @@
 </footer>
 
 <script>
+  // Theme toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('tradr-theme', next); } catch(e) {}
+  }
+  // Restore saved theme
+  try {
+    const saved = localStorage.getItem('tradr-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch(e) {}
+
   let count = 247;
 
   function animateNum(id) {
