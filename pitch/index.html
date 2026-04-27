@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TRADR — Investor Pitch</title>
+  <meta name="description" content="TRADR is the trust layer retail trading never had. Built by a trader with 105K followers and 3M monthly views. Launching July 4."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg:#f7f5f0;--black:#0d0d0d;--green:#00c07f;--green-dark:#00a86b;
+      --green-dim:rgba(0,192,127,0.08);--green-mid:rgba(0,192,127,0.22);
+      --red:#d93025;--muted:#888880;--border:rgba(13,13,13,0.09);--card:#ffffff;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--black);font-family:'Syne',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+    /* TICKER */
+    .ticker{overflow:hidden;background:var(--black);border-bottom:0.5px solid rgba(255,255,255,0.06);}
+    .ticker-inner{display:flex;white-space:nowrap;animation:tickerScroll 30s linear infinite;}
+    .ticker-item{font-family:'DM Mono',monospace;font-size:11px;padding:9px 28px;border-right:0.5px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);letter-spacing:1px;flex-shrink:0;}
+    .ticker-item.up{color:var(--green);}
+    .ticker-item.down{color:#ff5c5c;}
+    @keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+    /* NAV */
+    nav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;max-width:960px;margin:0 auto;border-bottom:0.5px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;}
+    .nav-logo-t{width:28px;height:28px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;letter-spacing:-1px;}
+    .nav-logo-text{font-size:16px;font-weight:800;letter-spacing:3px;color:var(--black);}
+    .nav-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green-dark);letter-spacing:2px;border:0.5px solid var(--green-mid);padding:6px 14px;border-radius:2px;background:var(--green-dim);}
+
+    .wrap{max-width:960px;margin:0 auto;padding:0 40px;}
+    hr{border:none;border-top:0.5px solid var(--border);margin:0;}
+
+    /* HERO */
+    .hero{padding:100px 40px 80px;max-width:960px;margin:0 auto;}
+    .hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green-dark);margin-bottom:28px;display:flex;align-items:center;gap:10px;}
+    .pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulseAnim 2s ease-in-out infinite;flex-shrink:0;}
+    @keyframes pulseAnim{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.7);}}
+    .hero h1{font-size:clamp(44px,8vw,90px);font-weight:800;line-height:0.92;letter-spacing:-3px;color:var(--black);margin-bottom:32px;}
+    .hero h1 .accent{color:var(--green);}
+    .hero-tagline{font-size:18px;color:var(--muted);max-width:600px;line-height:1.65;margin-bottom:48px;}
+    .hero-tagline strong{color:var(--black);font-weight:600;}
+
+    /* HERO PROOF STRIP */
+    .proof-strip{display:grid;grid-template-columns:repeat(4,1fr);border:0.5px solid var(--border);border-radius:3px;background:var(--card);overflow:hidden;margin-bottom:44px;}
+    .proof-item{padding:24px 20px;border-right:0.5px solid var(--border);}
+    .proof-item:last-child{border-right:none;}
+    .proof-num{font-size:30px;font-weight:800;letter-spacing:-1.5px;color:var(--black);line-height:1;margin-bottom:6px;}
+    .proof-num .g{color:var(--green);}
+    .proof-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px;line-height:1.5;}
+
+    .cta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+    .btn-primary{display:inline-block;background:var(--black);color:#f7f5f0;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;padding:14px 32px;border-radius:2px;text-decoration:none;transition:opacity 0.15s;}
+    .btn-primary:hover{opacity:0.8;}
+    .btn-ghost{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;border-bottom:0.5px solid var(--muted);padding-bottom:2px;}
+
+    /* SECTIONS */
+    .section{padding:80px 0;}
+    .section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--green-dark);margin-bottom:48px;display:flex;align-items:center;gap:16px;}
+    .section-label::after{content:'';flex:1;height:0.5px;background:var(--border);}
+    .section-h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:20px;color:var(--black);}
+    .section-body{font-size:16px;line-height:1.8;color:var(--muted);max-width:640px;}
+    .section-body strong{color:var(--black);}
+
+    /* PROBLEM */
+    .problem-big{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-0.5px;line-height:1.4;color:var(--black);max-width:680px;margin-bottom:40px;}
+    .problem-big .strike{text-decoration:line-through;color:var(--muted);font-weight:400;}
+    .truth-list{display:flex;flex-direction:column;border:0.5px solid var(--border);border-radius:3px;background:var(--card);overflow:hidden;}
+    .truth-item{display:flex;align-items:flex-start;gap:20px;padding:22px 28px;border-bottom:0.5px solid var(--border);transition:background 0.15s;}
+    .truth-item:last-child{border-bottom:none;}
+    .truth-item:hover{background:var(--bg);}
+    .truth-x{font-size:13px;color:var(--red);margin-top:2px;flex-shrink:0;font-family:'DM Mono',monospace;}
+    .truth-text{font-size:15px;color:var(--muted);line-height:1.65;}
+    .truth-text strong{color:var(--black);}
+
+    /* DISTRIBUTION SECTION */
+    .dist-block{background:var(--black);border-radius:3px;padding:56px 48px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+    .dist-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-bottom:20px;}
+    .dist-h2{font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-1px;color:#f7f5f0;line-height:1.2;margin-bottom:20px;}
+    .dist-h2 .accent{color:var(--green);}
+    .dist-body{font-size:15px;color:rgba(255,255,255,0.45);line-height:1.7;}
+    .dist-stats{display:flex;flex-direction:column;border:0.5px solid rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+    .dist-stat{padding:20px 24px;border-bottom:0.5px solid rgba(255,255,255,0.08);}
+    .dist-stat:last-child{border-bottom:none;}
+    .dist-stat-num{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:#f7f5f0;margin-bottom:4px;line-height:1;}
+    .dist-stat-num .unit{font-size:18px;color:var(--green);}
+    .dist-stat-label{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1.5px;}
+
+    /* MOCKUP SECTION */
+    .mockup-section{padding:80px 0;}
+    .phone-tabs{display:flex;gap:0;border:0.5px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:40px;background:var(--card);}
+    .phone-tab{flex:1;padding:12px 8px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;text-align:center;cursor:pointer;background:transparent;color:var(--muted);border:none;border-right:0.5px solid var(--border);transition:all 0.2s;}
+    .phone-tab:last-child{border-right:none;}
+    .phone-tab.active{background:var(--black);color:#f7f5f0;}
+    .mockup-panel{display:none;}
+    .mockup-panel.active{display:flex;justify-content:center;gap:40px;align-items:flex-start;flex-wrap:wrap;}
+
+    /* PHONE FRAME */
+    .phone{width:280px;background:#fff;border-radius:36px;border:8px solid #1a1a1a;overflow:hidden;flex-shrink:0;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+    .phone-screen{height:560px;overflow:hidden;position:relative;display:flex;flex-direction:column;}
+
+    /* DESKTOP FRAME */
+    .desktop-frame{background:#fff;border-radius:10px;border:6px solid #1a1a1a;overflow:hidden;width:560px;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+    .desktop-bar{background:#f0f0ee;border-bottom:1px solid #e0e0de;padding:8px 12px;display:flex;align-items:center;gap:8px;}
+    .desktop-dots{display:flex;gap:5px;}
+    .desktop-dot{width:10px;height:10px;border-radius:50%;}
+    .desktop-url{flex:1;background:#fff;border-radius:3px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;color:#888;margin:0 12px;}
+
+    /* APP SIDEBAR */
+    .app-layout{display:flex;height:100%;}
+    .sidebar{width:180px;border-right:1px solid #f0f0ee;padding:16px 12px;display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+    .sidebar-logo{display:flex;align-items:center;gap:8px;padding:8px;margin-bottom:12px;}
+    .sidebar-logo-t{width:24px;height:24px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;}
+    .sidebar-logo-text{font-size:14px;font-weight:800;color:var(--green);letter-spacing:1px;}
+    .sidebar-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;font-size:12px;font-weight:500;color:#666;cursor:pointer;}
+    .sidebar-item:hover{background:#f7f5f0;}
+    .sidebar-item.active{background:#f0faf5;color:var(--black);font-weight:600;}
+    .sidebar-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+    .sidebar-post-btn{margin-top:auto;background:var(--green);color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:10px 16px;border-radius:20px;text-align:center;cursor:pointer;letter-spacing:0.5px;}
+
+    /* PHONE TOPBAR */
+    .phone-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 8px;border-bottom:0.5px solid #f0f0ee;flex-shrink:0;}
+    .phone-logo{display:flex;align-items:center;gap:6px;}
+    .phone-logo-t{width:22px;height:22px;background:var(--green);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;}
+    .phone-logo-text{font-size:13px;font-weight:800;color:var(--green);letter-spacing:2px;}
+    .phone-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#1a1a1a,#444);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;overflow:hidden;}
+    .phone-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+
+    /* FEED */
+    .feed-scroll{overflow-y:auto;flex:1;}
+    .feed-tabs-inner{display:flex;padding:0 14px;gap:16px;border-bottom:0.5px solid #f0f0ee;}
+    .feed-tab-inner{font-size:12px;font-weight:600;color:#aaa;padding:8px 0;cursor:pointer;border-bottom:2px solid transparent;}
+    .feed-tab-inner.active{color:var(--black);border-bottom-color:var(--black);}
+    .sig-card{padding:14px;border-bottom:0.5px solid #f5f5f3;}
+    .sig-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+    .sig-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+    .sig-name{font-size:12px;font-weight:700;color:var(--black);}
+    .sig-handle{font-size:9px;color:#aaa;font-family:'DM Mono',monospace;}
+    .sig-time{font-size:9px;color:#ccc;font-family:'DM Mono',monospace;margin-left:auto;}
+    .sig-direction{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:0.5px;margin-bottom:6px;}
+    .sig-direction.buy{background:rgba(0,192,127,0.1);color:var(--green-dark);}
+    .sig-direction.sell{background:rgba(217,48,37,0.1);color:var(--red);}
+    .sig-market-name{font-size:17px;font-weight:800;color:var(--black);letter-spacing:-0.5px;}
+    .sig-sub{font-size:10px;color:#aaa;font-family:'DM Mono',monospace;margin-top:1px;}
+    .sig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0;padding:8px;background:#f8f8f6;border-radius:4px;}
+    .sg-item-label{font-family:'DM Mono',monospace;font-size:8px;color:#bbb;letter-spacing:1px;}
+    .sg-item-val{font-size:11px;font-weight:700;color:var(--black);}
+    .sig-footer{display:flex;align-items:center;justify-content:space-between;}
+    .sig-rr-txt{font-family:'DM Mono',monospace;font-size:9px;color:#aaa;}
+    .status-pill{font-family:'DM Mono',monospace;font-size:9px;padding:3px 7px;border-radius:10px;display:flex;align-items:center;gap:4px;}
+    .status-pill.open{background:#fff8e1;color:#e09800;}
+    .status-pill.win{background:rgba(0,168,107,0.1);color:var(--green-dark);}
+    .status-pill.loss{background:rgba(217,48,37,0.08);color:var(--red);}
+    .live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulseAnim 1.5s ease-in-out infinite;}
+
+    /* BOTTOM NAV */
+    .phone-bottom-nav{display:flex;align-items:center;justify-content:space-around;padding:8px 4px 10px;border-top:0.5px solid #f0f0ee;background:#fff;flex-shrink:0;}
+    .bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;}
+    .bnav-item svg{width:18px;height:18px;stroke:#ccc;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+    .bnav-item.active svg{stroke:var(--black);}
+    .bnav-item span{font-size:8px;color:#ccc;}
+    .bnav-item.active span{color:var(--black);}
+    .bnav-post{width:36px;height:36px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .bnav-post svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5;}
+
+    /* PROFILE SCREEN */
+    .profile-banner{height:80px;background:linear-gradient(135deg,#0a2a1a,#0d3d26);position:relative;overflow:hidden;flex-shrink:0;}
+    .profile-banner-logo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.15;}
+    .profile-banner-logo svg{width:120px;height:60px;}
+    .profile-body{padding:0 14px;flex:1;overflow-y:auto;}
+    .profile-avatar-wrap{display:flex;align-items:flex-end;justify-content:space-between;margin-top:-20px;margin-bottom:10px;}
+    .profile-av{width:44px;height:44px;border-radius:50%;border:3px solid #fff;background:#1a1a1a;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;}
+    .profile-actions{display:flex;gap:6px;}
+    .profile-btn{font-family:'Syne',sans-serif;font-size:10px;font-weight:600;padding:5px 12px;border-radius:4px;cursor:pointer;border:1px solid #e0e0de;background:#fff;color:var(--black);}
+    .profile-name{font-size:15px;font-weight:800;color:var(--black);margin-bottom:2px;}
+    .profile-handle{font-family:'DM Mono',monospace;font-size:10px;color:#aaa;margin-bottom:4px;}
+    .profile-bio{font-size:11px;color:#666;margin-bottom:8px;}
+    .profile-meta{font-size:10px;color:#aaa;display:flex;gap:12px;margin-bottom:10px;font-family:'DM Mono',monospace;}
+    .profile-follow-row{display:flex;gap:12px;margin-bottom:12px;font-size:11px;color:#aaa;}
+    .profile-follow-row strong{color:var(--black);}
+    .perf-row{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+    .perf-label{font-size:11px;color:#aaa;}
+    .perf-val{font-size:13px;font-weight:700;}
+    .perf-val.neg{color:var(--red);}
+    .perf-val.pos{color:var(--green-dark);}
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:0.5px solid #f0f0ee;border-bottom:0.5px solid #f0f0ee;margin-bottom:10px;}
+    .stat-col{padding:10px 4px;text-align:center;border-right:0.5px solid #f0f0ee;}
+    .stat-col:last-child{border-right:none;}
+    .stat-col-num{font-size:14px;font-weight:800;color:var(--green-dark);}
+    .stat-col-num.black{color:var(--black);}
+    .stat-col-label{font-family:'DM Mono',monospace;font-size:7px;color:#aaa;letter-spacing:0.5px;margin-top:1px;}
+    .profile-tabs-inner{display:flex;border-bottom:0.5px solid #f0f0ee;margin-bottom:6px;}
+    .ptab{flex:1;text-align:center;padding:8px 4px;font-size:11px;font-weight:600;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;}
+    .ptab.active{color:var(--black);border-bottom-color:var(--green);}
+    .open-signal{background:#fff;border:0.5px solid #f0f0ee;border-radius:6px;padding:12px;margin-bottom:8px;}
+    .os-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+    .os-market{font-size:16px;font-weight:800;color:var(--black);letter-spacing:-0.5px;}
+    .os-category{font-family:'DM Mono',monospace;font-size:9px;color:#aaa;background:#f5f5f3;padding:2px 6px;border-radius:2px;}
+    .os-buy{font-family:'DM Mono',monospace;font-size:9px;color:var(--green-dark);background:rgba(0,192,127,0.1);padding:2px 6px;border-radius:2px;display:flex;align-items:center;gap:3px;}
+    .os-open{font-family:'DM Mono',monospace;font-size:9px;color:var(--green-dark);background:rgba(0,192,127,0.1);padding:2px 6px;border-radius:10px;display:flex;align-items:center;gap:3px;}
+    .os-time{font-family:'DM Mono',monospace;font-size:9px;color:#bbb;margin-left:auto;}
+    .os-pnl-row{display:flex;align-items:center;justify-content:space-between;}
+    .os-pnl-label{font-size:11px;color:#aaa;}
+    .os-pnl-val{font-size:13px;font-weight:800;color:var(--red);}
+
+    /* POST TRADE */
+    .post-screen{padding:14px;overflow-y:auto;flex:1;}
+    .post-title{font-size:17px;font-weight:800;color:var(--black);margin-bottom:16px;letter-spacing:-0.5px;}
+    .form-group{margin-bottom:12px;}
+    .form-label{font-size:11px;color:#888;margin-bottom:5px;display:block;}
+    .form-input{width:100%;padding:10px 12px;border:1.5px solid #e8e8e6;border-radius:6px;font-size:13px;font-weight:600;color:var(--black);background:#fff;font-family:'Syne',sans-serif;}
+    .form-input.placeholder{color:#ccc;font-weight:400;}
+    .dir-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+    .dir-btn{padding:11px;border-radius:6px;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;border:1.5px solid transparent;text-align:center;letter-spacing:0.5px;}
+    .dir-btn.buy{background:rgba(0,192,127,0.1);color:var(--green-dark);border-color:rgba(0,192,127,0.3);}
+    .dir-btn.sell{background:#fafaf8;color:#ccc;border-color:#eee;}
+    .order-row{display:flex;border:1.5px solid #e8e8e6;border-radius:6px;overflow:hidden;margin-bottom:12px;}
+    .order-btn{flex:1;padding:9px 4px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;text-align:center;cursor:pointer;border:none;background:#fff;color:#aaa;}
+    .order-btn.active{background:var(--green);color:#fff;font-weight:700;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .rr-box{background:#f8f8f6;border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+    .rr-box-label{font-size:11px;color:#aaa;}
+    .rr-box-val{font-size:18px;font-weight:800;color:var(--black);}
+    .submit-btn{width:100%;padding:13px;background:var(--green);color:#fff;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;border:none;border-radius:20px;cursor:pointer;letter-spacing:0.5px;}
+
+    /* LEADERBOARD */
+    .lb-header{padding:14px;border-bottom:0.5px solid #f0f0ee;flex-shrink:0;}
+    .lb-header-title{font-size:18px;font-weight:800;color:var(--black);letter-spacing:-0.5px;}
+    .lb-tabs{display:flex;border-bottom:0.5px solid #f0f0ee;flex-shrink:0;}
+    .lb-tab{flex:1;text-align:center;padding:8px;font-size:10px;font-weight:600;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;}
+    .lb-tab.active{color:var(--black);border-bottom-color:var(--green);}
+    .lb-filters{display:flex;gap:6px;padding:8px 14px;border-bottom:0.5px solid #f0f0ee;overflow-x:auto;flex-shrink:0;}
+    .lb-filter{font-family:'DM Mono',monospace;font-size:9px;padding:4px 10px;border-radius:2px;border:0.5px solid #e0e0de;color:#888;white-space:nowrap;cursor:pointer;background:#fff;}
+    .lb-filter.active{background:var(--black);color:#fff;border-color:var(--black);}
+    .lb-list{overflow-y:auto;flex:1;}
+    .lb-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:0.5px solid #f5f5f3;cursor:pointer;}
+    .lb-row:hover{background:#fafaf8;}
+    .lb-rank{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#ccc;width:18px;text-align:center;flex-shrink:0;}
+    .lb-rank.gold{color:#f5a623;}
+    .lb-rank.silver{color:#9b9b9b;}
+    .lb-rank.bronze{color:#c47a3a;}
+    .lb-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;}
+    .lb-info{flex:1;}
+    .lb-name{font-size:12px;font-weight:700;color:var(--black);}
+    .lb-handle{font-family:'DM Mono',monospace;font-size:9px;color:#aaa;}
+    .lb-right{text-align:right;}
+    .lb-wr{font-size:13px;font-weight:800;color:var(--green-dark);}
+    .lb-sub-info{font-family:'DM Mono',monospace;font-size:9px;color:#aaa;margin-top:1px;}
+
+    /* HOW IT WORKS */
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px;}
+    .how-card{border:0.5px solid var(--border);border-radius:3px;padding:32px 24px;background:var(--card);}
+    .how-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--green-dark);margin-bottom:16px;}
+    .how-icon{width:36px;height:36px;border-radius:3px;background:var(--green-dim);border:0.5px solid var(--green-mid);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+    .how-icon svg{width:16px;height:16px;stroke:var(--green-dark);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+    .how-title{font-size:15px;font-weight:700;color:var(--black);margin-bottom:8px;}
+    .how-body{font-size:13px;color:var(--muted);line-height:1.65;}
+
+    /* WIN GRID */
+    .win-list{display:flex;flex-direction:column;border:0.5px solid var(--border);border-radius:3px;background:var(--card);overflow:hidden;margin-top:40px;}
+    .win-item{display:flex;align-items:flex-start;gap:24px;padding:28px;border-bottom:0.5px solid var(--border);transition:background 0.15s;}
+    .win-item:last-child{border-bottom:none;}
+    .win-item:hover{background:var(--bg);}
+    .win-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--green-dark);margin-top:2px;flex-shrink:0;min-width:24px;}
+    .win-title{font-size:15px;font-weight:700;color:var(--black);margin-bottom:6px;}
+    .win-body{font-size:14px;color:var(--muted);line-height:1.65;}
+    .win-body strong{color:var(--black);}
+
+    /* MODEL */
+    .model-list{display:flex;flex-direction:column;border:0.5px solid var(--border);border-radius:3px;background:var(--card);overflow:hidden;margin-top:40px;}
+    .model-row{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:0.5px solid var(--border);}
+    .model-row:last-child{border-bottom:none;}
+    .model-source{font-size:15px;font-weight:600;color:var(--black);}
+    .model-detail{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;}
+    .model-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--green-dark);border:0.5px solid var(--green-mid);padding:4px 10px;border-radius:2px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;margin-left:16px;background:var(--green-dim);}
+
+    /* COMP */
+    .comp-wrap{overflow-x:auto;border:0.5px solid var(--border);border-radius:3px;background:var(--card);margin-top:40px;}
+    table{width:100%;border-collapse:collapse;}
+    th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);padding:14px 20px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:400;background:var(--bg);}
+    td{padding:15px 20px;border-bottom:0.5px solid var(--border);font-size:14px;}
+    tr:last-child td{border-bottom:none;}
+    .comp-name{color:var(--black);font-weight:600;}
+    .tick-yes{color:var(--green-dark);font-size:15px;font-weight:700;}
+    .tick-no{color:rgba(13,13,13,0.15);font-size:15px;}
+    .tick-part{color:#e0a500;font-size:13px;}
+    .row-tradr td{background:var(--green-dim);}
+    .row-tradr .comp-name{color:var(--green-dark);}
+
+    /* CLOSING */
+    .closing{background:var(--black);padding:96px 40px 112px;text-align:center;}
+    .closing-inner{max-width:600px;margin:0 auto;}
+    .closing-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.25);margin-bottom:24px;}
+    .closing h2{font-size:clamp(32px,5vw,58px);font-weight:800;letter-spacing:-2px;line-height:1.05;color:#f7f5f0;margin-bottom:20px;}
+    .closing h2 .accent{color:var(--green);}
+    .closing-sub{font-size:16px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:8px;}
+    .closing-box{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.85;border:0.5px solid rgba(255,255,255,0.09);border-radius:3px;padding:24px 28px;margin:28px auto;font-family:'DM Mono',monospace;letter-spacing:0.3px;max-width:460px;}
+    .closing-box strong{color:#f7f5f0;}
+    .btn-green{display:inline-block;background:var(--green);color:var(--black);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;padding:15px 36px;border-radius:2px;text-decoration:none;transition:opacity 0.15s;}
+    .btn-green:hover{opacity:0.85;}
+    .closing-url{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:1px;margin-top:20px;}
+
+    footer{background:var(--black);border-top:0.5px solid rgba(255,255,255,0.06);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .footer-logo{font-size:12px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,0.2);}
+    .footer-meta{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.15);letter-spacing:1px;}
+
+    @media(max-width:700px){
+      nav{padding:18px 20px;}
+      .hero{padding:60px 20px 48px;}
+      .wrap{padding:0 20px;}
+      .proof-strip{grid-template-columns:repeat(2,1fr);}
+      .proof-item:nth-child(2){border-right:none;}
+      .proof-item:nth-child(1),.proof-item:nth-child(2){border-bottom:0.5px solid var(--border);}
+      .dist-block{grid-template-columns:1fr;gap:32px;padding:32px 24px;}
+      .how-grid{grid-template-columns:1fr;}
+      .closing{padding:60px 20px 80px;}
+      footer{flex-direction:column;gap:8px;text-align:center;padding:18px 20px;}
+      th:nth-child(4),td:nth-child(4){display:none;}
+      .phone-tab{font-size:9px;padding:10px 4px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item up">BTC +4.2%</span>
+    <span class="ticker-item down">FAKE GURUS -100%</span>
+    <span class="ticker-item up">VERIFIED PNL +inf</span>
+    <span class="ticker-item">500M RETAIL TRADERS</span>
+    <span class="ticker-item up">SIGNAL ROOMS OPEN</span>
+    <span class="ticker-item down">TRUST DEFICIT MAX</span>
+    <span class="ticker-item up">XAU/USD +0.8%</span>
+    <span class="ticker-item">105K FOLLOWERS READY</span>
+    <span class="ticker-item up">ETH +2.7%</span>
+    <span class="ticker-item down">SCREENSHOT CULTURE DEAD</span>
+    <span class="ticker-item up">BTC +4.2%</span>
+    <span class="ticker-item down">FAKE GURUS -100%</span>
+    <span class="ticker-item up">VERIFIED PNL +inf</span>
+    <span class="ticker-item">300M RETAIL TRADERS</span>
+    <span class="ticker-item up">SIGNAL ROOMS OPEN</span>
+    <span class="ticker-item down">TRUST DEFICIT MAX</span>
+    <span class="ticker-item up">XAU/USD +0.8%</span>
+    <span class="ticker-item">105K FOLLOWERS READY</span>
+    <span class="ticker-item up">ETH +2.7%</span>
+    <span class="ticker-item down">SCREENSHOT CULTURE DEAD</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-t">T</div>
+    <div class="nav-logo-text">TRADR</div>
+  </div>
+  <div class="nav-badge">LAUNCHING JULY 4</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eyebrow"><div class="pulse"></div>INVESTOR BRIEF — CONFIDENTIAL</div>
+  <h1>
+    If it's not tracked<br>
+    it didn't<br>
+    <span class="accent">happen.</span>
+  </h1>
+  <p class="hero-tagline">
+    Trading has a truth problem. <strong>TRADR is the fix.</strong> The first social trading platform where every signal is verified at the execution layer — no fake gurus, no cherry-picked screenshots, no bullshit.
+  </p>
+  <div class="proof-strip">
+    <div class="proof-item">
+      <div class="proof-num">300<span class="g">M+</span></div>
+      <div class="proof-label">RETAIL TRADERS<br>GLOBALLY</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">$15<span class="g">T</span></div>
+      <div class="proof-label">DAILY RETAIL<br>VOLUME</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">105<span class="g">K</span></div>
+      <div class="proof-label">BUILT-IN AUDIENCE<br>BEFORE LAUNCH</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">Jul <span class="g">4</span></div>
+      <div class="proof-label">LAUNCH DATE<br>LOCKED</div>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a href="mailto:harchimommo@gmail.com" class="btn-primary">REQUEST ACCESS</a>
+    <span class="btn-ghost">Not a public raise — limited seats</span>
+  </div>
+</header>
+
+<hr>
+
+<div class="wrap">
+
+<!-- 01 THE PROBLEM -->
+<section class="section">
+  <div class="section-label">01 — THE TRUTH PROBLEM</div>
+  <div class="problem-big">
+    Trading is broken.<br>
+    <span class="strike">Verified signals.</span>
+    <span class="strike">Honest results.</span>
+    <span class="strike">Real accountability.</span><br>
+    Billions traded daily — on fake credibility.
+  </div>
+  <p class="section-body">The trading industry runs on trust that doesn't exist. Influencers post only their wins. Signals are unverified. Performance is self-reported. <strong>The best traders have no way to prove they're actually good</strong> — and newer traders have no way to find them.</p>
+  <div class="truth-list" style="margin-top:36px;">
+    <div class="truth-item">
+      <div class="truth-x">X</div>
+      <div class="truth-text"><strong>Fake PnL screenshots are everywhere.</strong> Anyone can fabricate results in 30 seconds. No platform verifies at the execution layer. The entire industry runs on unverified claims.</div>
+    </div>
+    <div class="truth-item">
+      <div class="truth-x">X</div>
+      <div class="truth-text"><strong>The best traders are invisible.</strong> Consistent profitable traders have no credible stage to prove their edge — so they stay in private Telegrams charging pennies compared to what they're worth.</div>
+    </div>
+    <div class="truth-item">
+      <div class="truth-x">X</div>
+      <div class="truth-text"><strong>Social and execution are completely siloed.</strong> Twitter handles noise. Brokers handle trades. TradingView handles charts. Nobody has unified all three — with verified performance at the core.</div>
+    </div>
+    <div class="truth-item">
+      <div class="truth-x">X</div>
+      <div class="truth-text"><strong>Retail participation has 10x'd. Tools haven't.</strong> Post-2020, retail trading exploded globally across Forex, Crypto, and Commodities. The social infrastructure is still from 2015.</div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 02 DISTRIBUTION -->
+<section class="section">
+  <div class="section-label">02 — WHY WE WIN FROM DAY ONE</div>
+  <div class="dist-block">
+    <div>
+      <div class="dist-label">THE UNFAIR ADVANTAGE</div>
+      <h2 class="dist-h2">We don't need to<br>find the audience.<br><span class="accent">We already have it.</span></h2>
+      <p class="dist-body">Most startups spend years and millions building distribution. TRADR launches with 105,000 traders already engaged — 3 million monthly impressions from an audience built on real trading content, not paid ads. The founder is the market. The market is the founder.</p>
+    </div>
+    <div class="dist-stats">
+      <div class="dist-stat">
+        <div class="dist-stat-num">105<span class="unit">K</span></div>
+        <div class="dist-stat-label">FOLLOWERS — BUILT BEFORE LAUNCH</div>
+      </div>
+      <div class="dist-stat">
+        <div class="dist-stat-num">3<span class="unit">M+</span></div>
+        <div class="dist-stat-label">MONTHLY IMPRESSIONS</div>
+      </div>
+      <div class="dist-stat">
+        <div class="dist-stat-num">7<span class="unit">+ yrs</span></div>
+        <div class="dist-stat-label">ACTIVE TRADING EXPERIENCE</div>
+      </div>
+      <div class="dist-stat">
+        <div class="dist-stat-num">$450<span class="unit">K+</span></div>
+        <div class="dist-stat-label">CONSISTENT YEARLY PROFITS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 03 HOW IT WORKS + MOCKUPS -->
+<section class="mockup-section">
+  <div class="section-label">03 — HOW TRADR WORKS</div>
+  <h2 class="section-h2">Every trade verified.<br>Every reputation earned.</h2>
+  <p class="section-body" style="margin-bottom:40px;">When a trader posts on TRADR, the platform auto-resolves every trade when price hits Stop Loss or Take Profit — verified by live market data every second. <strong>You cannot edit it. You cannot delete it. Your track record is permanent.</strong></p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="how-title">Post a verified trade</div>
+      <div class="how-body">Select market, direction, entry, SL, TP. Entry price is locked at market rate — no editing after posting. Every trade is timestamped and public.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="how-title">Auto-resolved by market</div>
+      <div class="how-body">Supabase Edge Functions check live OHLC data every second. When SL or TP is hit, the trade is marked WIN or LOSS automatically. No human involvement.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="how-title">Your reputation compounds</div>
+      <div class="how-body">Win rate, profit factor, avg R:R, equity curve — all computed from verified data. Public profiles. Leaderboard rankings. Followers discover the real performers.</div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUPS -->
+  <div style="margin-top:48px;">
+    <div class="phone-tabs">
+      <button class="phone-tab active" onclick="showMockup('feed',this)">FEED</button>
+      <button class="phone-tab" onclick="showMockup('profile',this)">PROFILE</button>
+      <button class="phone-tab" onclick="showMockup('post',this)">POST TRADE</button>
+      <button class="phone-tab" onclick="showMockup('leaderboard',this)">LEADERBOARD</button>
+    </div>
+
+    <!-- FEED -->
+    <div class="mockup-panel active" id="mock-feed">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-bar">
+            <div class="phone-avatar">MH</div>
+            <div class="phone-logo"><div class="phone-logo-t">T</div><div class="phone-logo-text">TRADR</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div style="display:flex;padding:0 14px;gap:14px;border-bottom:0.5px solid #f0f0ee;flex-shrink:0;">
+            <div class="feed-tab-inner active">All</div>
+            <div class="feed-tab-inner">Forex</div>
+            <div class="feed-tab-inner">Crypto</div>
+            <div class="feed-tab-inner">Gold</div>
+          </div>
+          <div class="feed-scroll">
+            <!-- Signal 1 -->
+            <div class="sig-card">
+              <div class="sig-top">
+                <div class="sig-av" style="background:linear-gradient(135deg,#00a86b,#005c3a);">JK</div>
+                <div><div class="sig-name">Jordan K.</div><div class="sig-handle">@jordanfx</div></div>
+                <div class="sig-time">2m ago</div>
+              </div>
+              <div class="sig-direction buy">&#9650; BUY</div>
+              <div class="sig-market-name">XAU/USD</div>
+              <div class="sig-sub">FOREX &middot; COMMODITIES</div>
+              <div class="sig-grid">
+                <div><div class="sg-item-label">ENTRY</div><div class="sg-item-val">2,334.50</div></div>
+                <div><div class="sg-item-label">STOP</div><div class="sg-item-val" style="color:var(--red);">2,318.00</div></div>
+                <div><div class="sg-item-label">TARGET</div><div class="sg-item-val" style="color:var(--green-dark);">2,367.00</div></div>
+              </div>
+              <div class="sig-footer">
+                <div class="sig-rr-txt">R:R 1:2.0 &middot; Risk 2%</div>
+                <div class="status-pill open"><div class="live-dot"></div>OPEN</div>
+              </div>
+            </div>
+            <!-- Signal 2 -->
+            <div class="sig-card">
+              <div class="sig-top">
+                <div class="sig-av" style="background:linear-gradient(135deg,#6c63ff,#3d35c4);">SA</div>
+                <div><div class="sig-name">Sofia A.</div><div class="sig-handle">@sofiafx</div></div>
+                <div class="sig-time">18m ago</div>
+              </div>
+              <div class="sig-direction sell">&#9660; SELL</div>
+              <div class="sig-market-name">EUR/USD</div>
+              <div class="sig-sub">FOREX</div>
+              <div class="sig-grid">
+                <div><div class="sg-item-label">ENTRY</div><div class="sg-item-val">1.08420</div></div>
+                <div><div class="sg-item-label">STOP</div><div class="sg-item-val" style="color:var(--red);">1.08650</div></div>
+                <div><div class="sg-item-label">TARGET</div><div class="sg-item-val" style="color:var(--green-dark);">1.07960</div></div>
+              </div>
+              <div class="sig-footer">
+                <div class="sig-rr-txt">R:R 1:2.0 &middot; Risk 1.5%</div>
+                <div class="status-pill win">WIN +2.1%</div>
+              </div>
+            </div>
+            <!-- Signal 3 -->
+            <div class="sig-card">
+              <div class="sig-top">
+                <div class="sig-av" style="background:linear-gradient(135deg,#f5a623,#c47a3a);">RT</div>
+                <div><div class="sig-name">Reza T.</div><div class="sig-handle">@rezacrypto</div></div>
+                <div class="sig-time">1h ago</div>
+              </div>
+              <div class="sig-direction buy">&#9650; BUY</div>
+              <div class="sig-market-name">BTC/USD</div>
+              <div class="sig-sub">CRYPTO</div>
+              <div class="sig-grid">
+                <div><div class="sg-item-label">ENTRY</div><div class="sg-item-val">83,420</div></div>
+                <div><div class="sg-item-label">STOP</div><div class="sg-item-val" style="color:var(--red);">81,000</div></div>
+                <div><div class="sg-item-label">TARGET</div><div class="sg-item-val" style="color:var(--green-dark);">88,500</div></div>
+              </div>
+              <div class="sig-footer">
+                <div class="sig-rr-txt">R:R 1:2.1 &middot; Risk 3%</div>
+                <div class="status-pill loss">LOSS -1.4%</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="bnav-item active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Home</span></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Explore</span></div>
+            <div class="bnav-post"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Trades</span></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="mockup-panel" id="mock-profile">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-bar" style="padding:10px 14px 6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <div style="font-size:13px;font-weight:700;color:var(--black);">mohamed</div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="profile-banner">
+            <div class="profile-banner-logo">
+              <svg viewBox="0 0 200 80" fill="none"><text x="10" y="65" font-family="serif" font-size="72" font-weight="900" fill="rgba(0,192,127,0.6)">Tradr</text></svg>
+            </div>
+          </div>
+          <div class="profile-body">
+            <div class="profile-avatar-wrap">
+              <div class="profile-av">MH</div>
+              <div class="profile-actions">
+                <div class="profile-btn">Edit profile</div>
+                <div class="profile-btn">Sign Out</div>
+              </div>
+            </div>
+            <div class="profile-name">Mohamed Harchi</div>
+            <div class="profile-handle">@mohamed</div>
+            <div class="profile-bio">i run this shit</div>
+            <div class="profile-meta"><span>&#128197; Joined 2 days ago</span><span>Specialty: Forex</span></div>
+            <div class="profile-follow-row"><span><strong>0</strong> Following</span><span><strong>0</strong> Followers</span></div>
+            <div class="perf-row"><span class="perf-label">Performance:</span><span class="perf-val neg">-2.33%</span></div>
+            <div class="stats-row">
+              <div class="stat-col"><div class="stat-col-num">0.0<span style="font-size:9px">%</span></div><div class="stat-col-label">WIN RATE</div></div>
+              <div class="stat-col"><div class="stat-col-num">0.00</div><div class="stat-col-label">PROFIT FACTOR</div></div>
+              <div class="stat-col"><div class="stat-col-num black">1.00</div><div class="stat-col-label">AVG R:R</div></div>
+              <div class="stat-col"><div class="stat-col-num black">13</div><div class="stat-col-label">SIGNALS</div></div>
+            </div>
+            <div class="profile-tabs-inner">
+              <div class="ptab active">Open</div>
+              <div class="ptab">Closed</div>
+              <div class="ptab">Stats</div>
+            </div>
+            <div class="open-signal">
+              <div class="os-top">
+                <div class="sig-av" style="width:22px;height:22px;font-size:8px;background:linear-gradient(135deg,#1a1a1a,#444);">MH</div>
+                <span style="font-size:11px;font-weight:700;color:var(--black);">mohamed</span>
+                <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);">-2.33%</span>
+                <div class="os-time">3 minutes ago</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                <div class="os-market">EUR/USD</div>
+                <div class="os-category">FOREX</div>
+                <div class="os-buy">&#9650; BUY</div>
+                <div class="os-open"><div class="live-dot"></div>OPEN</div>
+              </div>
+              <div class="os-pnl-row">
+                <div class="os-pnl-label">Picking 10.0%</div>
+                <div class="os-pnl-val">-2.33%</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Home</span></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Explore</span></div>
+            <div class="bnav-post"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Trades</span></div>
+            <div class="bnav-item active"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST TRADE -->
+    <div class="mockup-panel" id="mock-post">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-bar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <div style="font-size:13px;font-weight:700;color:var(--black);">Post a Trade</div>
+            <div style="width:16px;"></div>
+          </div>
+          <div class="post-screen">
+            <div class="form-group">
+              <label class="form-label">Search market</label>
+              <div class="form-input placeholder">Search market (e.g. EUR/USD, BTC/USD, AAPL)</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Direction</label>
+              <div class="dir-row">
+                <div class="dir-btn buy">BUY</div>
+                <div class="dir-btn sell">SELL</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Order Type</label>
+              <div class="order-row">
+                <div class="order-btn active">MARKET</div>
+                <div class="order-btn">LIMIT</div>
+                <div class="order-btn">STOP</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Entry Price</label>
+              <div class="form-input" style="color:#aaa;background:#fafaf8;border-color:#f0f0ee;font-weight:400;font-size:12px;">Locked at market price</div>
+            </div>
+            <div class="form-row" style="margin-bottom:12px;">
+              <div class="form-group">
+                <label class="form-label">Stop Loss (optional)</label>
+                <div class="form-input" style="color:var(--red);">00000000.00000</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Take Profit (optional)</label>
+                <div class="form-input" style="color:var(--green-dark);">00000000.00000</div>
+              </div>
+            </div>
+            <div class="rr-box">
+              <div class="rr-box-label">Risk : Reward</div>
+              <div class="rr-box-val">— : —</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Risk Percentage</label>
+              <div class="form-input placeholder">e.g. 2.00</div>
+            </div>
+            <button class="submit-btn">Post Trade</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="mockup-panel" id="mock-leaderboard">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-bar">
+            <div class="phone-avatar">MH</div>
+            <div class="phone-logo"><div class="phone-logo-t">T</div><div class="phone-logo-text">TRADR</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="lb-header"><div class="lb-header-title">&#127942; Leaderboard</div></div>
+          <div class="lb-tabs">
+            <div class="lb-tab">This Week</div>
+            <div class="lb-tab">This Month</div>
+            <div class="lb-tab active">All Time</div>
+          </div>
+          <div class="lb-filters">
+            <div class="lb-filter active">ALL</div>
+            <div class="lb-filter">FOREX</div>
+            <div class="lb-filter">CRYPTO</div>
+            <div class="lb-filter">COMMODITIES</div>
+          </div>
+          <div class="lb-list">
+            <div class="lb-row">
+              <div class="lb-rank gold">1</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#00a86b,#005c3a);">JK</div>
+              <div class="lb-info"><div class="lb-name">Jordan K.</div><div class="lb-handle">@jordanfx &middot; Gold</div></div>
+              <div class="lb-right"><div class="lb-wr">78%</div><div class="lb-sub-info">+34.7% &middot; 64 sig</div></div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank silver">2</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#6c63ff,#3d35c4);">SA</div>
+              <div class="lb-info"><div class="lb-name">Sofia A.</div><div class="lb-handle">@sofiafx &middot; Forex</div></div>
+              <div class="lb-right"><div class="lb-wr">74%</div><div class="lb-sub-info">+28.1% &middot; 91 sig</div></div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank bronze">3</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#f5a623,#c47a3a);">RT</div>
+              <div class="lb-info"><div class="lb-name">Reza T.</div><div class="lb-handle">@rezacrypto &middot; Crypto</div></div>
+              <div class="lb-right"><div class="lb-wr">71%</div><div class="lb-sub-info">+22.4% &middot; 47 sig</div></div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">4</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#0099cc,#004d66);">AP</div>
+              <div class="lb-info"><div class="lb-name">Alex P.</div><div class="lb-handle">@alexpro &middot; Forex</div></div>
+              <div class="lb-right"><div class="lb-wr">68%</div><div class="lb-sub-info">+19.8% &middot; 112 sig</div></div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">5</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#9b59b6,#6c3483);">NM</div>
+              <div class="lb-info"><div class="lb-name">Nina M.</div><div class="lb-handle">@ninafx &middot; Gold</div></div>
+              <div class="lb-right"><div class="lb-wr">65%</div><div class="lb-sub-info">+16.2% &middot; 38 sig</div></div>
+            </div>
+            <div class="lb-row">
+              <div class="lb-rank">6</div>
+              <div class="lb-av" style="background:linear-gradient(135deg,#e74c3c,#7b241c);">DL</div>
+              <div class="lb-info"><div class="lb-name">Daniel L.</div><div class="lb-handle">@danielfx &middot; Crypto</div></div>
+              <div class="lb-right"><div class="lb-wr">63%</div><div class="lb-sub-info">+14.5% &middot; 78 sig</div></div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>Home</span></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Explore</span></div>
+            <div class="bnav-post"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+            <div class="bnav-item active"><svg viewBox="0 0 24 24"><path d="M2 20h.01M7 20v-4a5 5 0 0110 0v4M17 20h5"/><polyline points="17 8 21 12 17 16"/></svg><span>Leaderboard</span></div>
+            <div class="bnav-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 04 WHY WE WIN -->
+<section class="section">
+  <div class="section-label">04 — WHY TRADR WINS</div>
+  <h2 class="section-h2">Four structural<br>advantages.</h2>
+  <div class="win-list">
+    <div class="win-item">
+      <div class="win-num">01</div>
+      <div>
+        <div class="win-title">Built-in distribution — 105K before launch</div>
+        <div class="win-body">Most startups spend millions finding their first users. We launch into a <strong>105,000-trader audience with 3M monthly impressions</strong> built organically over 5 years. The founder is the market. Day 1 we have users, not just hopes.</div>
+      </div>
+    </div>
+    <div class="win-item">
+      <div class="win-num">02</div>
+      <div>
+        <div class="win-title">Trust layer — impossible to replicate quickly</div>
+        <div class="win-body">The auto-resolution engine verifies every trade via live market data. <strong>Fake performance is structurally impossible.</strong> Any competitor trying to copy this needs months of infrastructure — by then we have the data moat and the network.</div>
+      </div>
+    </div>
+    <div class="win-item">
+      <div class="win-num">03</div>
+      <div>
+        <div class="win-title">Network effects that lock everyone in</div>
+        <div class="win-body">Top traders join to prove their edge. Followers join to find real performers. <strong>Once a trader's verified track record lives on TRADR, they don't move it.</strong> Every trade posted makes the platform more valuable for everyone else.</div>
+      </div>
+    </div>
+    <div class="win-item">
+      <div class="win-num">04</div>
+      <div>
+        <div class="win-title">The data moat compounds forever</div>
+        <div class="win-body">Every trade resolved builds the world's largest dataset of <strong>verified real trader performance across Forex, Crypto, and Commodities.</strong> That dataset — over time — is worth more than the platform itself. Hedge funds will pay for it. Brokers will integrate for it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 05 BUSINESS MODEL -->
+<section class="section">
+  <div class="section-label">05 — BUSINESS MODEL</div>
+  <h2 class="section-h2">Multiple streams.<br>One flywheel.</h2>
+  <div class="model-list">
+    <div class="model-row">
+      <div><div class="model-source">Transaction commission &mdash; 5%</div><div class="model-detail">Every payment through the app (signal subs, tips, courses, group fees) &mdash; TRADR takes 5% automatically. No flat fees. We win when traders win.</div></div>
+      <div class="model-tag">CORE ENGINE</div>
+    </div>
+    <div class="model-row">
+      <div><div class="model-source">Signal room subscriptions</div><div class="model-detail">Followers pay traders monthly for verified signal access &mdash; 5% commission collected on every transaction at scale</div></div>
+      <div class="model-tag">RECURRING</div>
+    </div>
+    <div class="model-row">
+      <div><div class="model-source">Broker integrations</div><div class="model-detail">Brokers pay to be listed and integrated &mdash; users auto-post MT4/MT5 trades directly to Tradr</div></div>
+      <div class="model-tag">B2B</div>
+    </div>
+    <div class="model-row">
+      <div><div class="model-source">Data licensing</div><div class="model-detail">Verified trader performance dataset licensed to hedge funds, prop firms, and institutions</div></div>
+      <div class="model-tag">HIGH VALUE</div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- 06 COMPETITIVE -->
+<section class="section">
+  <div class="section-label">06 — COMPETITIVE LANDSCAPE</div>
+  <h2 class="section-h2">No one does<br>what we do.</h2>
+  <div class="comp-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>PLATFORM</th><th>SOCIAL</th><th>VERIFIED PERF</th><th>SIGNAL ROOMS</th><th>EXECUTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="comp-name">Twitter / X</td><td class="tick-yes">&#10003;</td><td class="tick-no">-</td><td class="tick-no">-</td><td class="tick-no">-</td></tr>
+        <tr><td class="comp-name">Stocktwits</td><td class="tick-yes">&#10003;</td><td class="tick-no">-</td><td class="tick-no">-</td><td class="tick-no">-</td></tr>
+        <tr><td class="comp-name">TradingView</td><td class="tick-yes">&#10003;</td><td class="tick-no">-</td><td class="tick-no">-</td><td class="tick-no">-</td></tr>
+        <tr><td class="comp-name">eToro</td><td class="tick-yes">&#10003;</td><td class="tick-part">~</td><td class="tick-no">-</td><td class="tick-yes">&#10003;</td></tr>
+        <tr class="row-tradr"><td class="comp-name">TRADR</td><td class="tick-yes">&#10003;</td><td class="tick-yes">&#10003;</td><td class="tick-yes">&#10003;</td><td class="tick-yes">&#10003;</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.6;">eToro went public at $10B as a broker that bolted social on top. TRADR builds the trust layer first — with 105K built-in users and a verified performance engine. Structurally different. Structurally better.</p>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-inner">
+    <div class="closing-label">THE ASK</div>
+    <h2>
+      Get in before<br>
+      <span class="accent">this becomes obvious.</span>
+    </h2>
+    <p class="closing-sub">We are speaking with a small group of early backers.<br>This is not a public raise.</p>
+    <div class="closing-box">
+      The people entering at this stage get in before:<br><br>
+      <strong>Public launch &mdash; July 4th.</strong><br>
+      <strong>User growth &mdash; 105K audience activated.</strong><br>
+      <strong>Network effects &mdash; once they kick in, it's over.</strong><br><br>
+      That window doesn't stay open.
+    </div>
+    <a href="mailto:invest@tradr.me" class="btn-green">REQUEST ACCESS</a>
+    <div class="closing-url">tradr.me/pitch</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">TRADR</div>
+  <div class="footer-meta">CONFIDENTIAL — NOT FOR DISTRIBUTION — 2026</div>
+</footer>
+
+<script>
+function showMockup(name, btn) {
+  document.querySelectorAll('.mockup-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.phone-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('mock-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tradr — Invest</title>
+  <meta name="description" content="Tradr is raising €100,000 at a €2M pre-money valuation. Two ways in: 5% equity or 5% royalty. Pre-launch entry — closing at launch on July 4." />
+  <link rel="icon" type="image/png" href="/logo-transparent.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── LIGHT THEME (default) ─────────────────────────────────────── */
+    :root {
+      --green: #00a87e;
+      --green-dark: #008f6a;
+      --green-dim: rgba(0, 168, 126, 0.08);
+      --green-glow: rgba(0, 168, 126, 0.14);
+      --green-border: rgba(0, 168, 126, 0.22);
+      --bg: #f5f7f6;
+      --bg2: #ffffff;
+      --bg3: #edf0ee;
+      --border: rgba(26, 43, 35, 0.1);
+      --text: #1a2b23;
+      --muted: rgba(26, 43, 35, 0.55);
+      --muted2: rgba(26, 43, 35, 0.3);
+      --gold: #c98a16;
+      --cta-text: #ffffff;
+      --grid-line: rgba(0, 168, 126, 0.05);
+      --glow-color-1: rgba(0, 168, 126, 0.08);
+      --glow-color-2: rgba(0, 168, 126, 0.05);
+      --nav-bg: rgba(245, 247, 246, 0.88);
+      --hero-card-bg: linear-gradient(180deg, #ffffff 0%, #f0f4f2 100%);
+      --sans: 'Syne', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --body: 'DM Sans', sans-serif;
+    }
+
+    /* ─── DARK THEME ────────────────────────────────────────────────── */
+    [data-theme="dark"] {
+      --green: #00C896;
+      --green-dark: #00a87e;
+      --green-dim: rgba(0, 200, 150, 0.1);
+      --green-glow: rgba(0, 200, 150, 0.18);
+      --green-border: rgba(0, 200, 150, 0.22);
+      --bg: #060a08;
+      --bg2: #0b1410;
+      --bg3: #0f1a15;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8f0ec;
+      --muted: rgba(232, 240, 236, 0.5);
+      --muted2: rgba(232, 240, 236, 0.28);
+      --gold: #f5b942;
+      --cta-text: #060a08;
+      --grid-line: rgba(0, 200, 150, 0.04);
+      --glow-color-1: rgba(0, 200, 150, 0.12);
+      --glow-color-2: rgba(0, 200, 150, 0.07);
+      --nav-bg: rgba(6, 10, 8, 0.85);
+      --hero-card-bg: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--body);
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
+      transition: background .4s, color .4s;
+    }
+
+    .bg-grid {
+      position: fixed; inset: 0;
+      background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    .glow { position: fixed; border-radius: 50%; filter: blur(160px); pointer-events: none; z-index: 0; }
+    .glow-1 { width: 800px; height: 800px; background: radial-gradient(circle, var(--glow-color-1) 0%, transparent 70%); top: -350px; left: 50%; transform: translateX(-50%); animation: g1 10s ease-in-out infinite; }
+    .glow-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--glow-color-2) 0%, transparent 70%); bottom: 200px; right: -150px; animation: g2 14s ease-in-out infinite; }
+    @keyframes g1 { 0%,100%{opacity:.7;transform:translateX(-50%) scale(1)} 50%{opacity:1;transform:translateX(-50%) scale(1.08)} }
+    @keyframes g2 { 0%,100%{opacity:.5} 50%{opacity:.9} }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.85)} }
+
+    section { position: relative; z-index: 1; }
+
+    /* NAV */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 56px; border-bottom: 1px solid var(--border);
+      background: var(--nav-bg); backdrop-filter: blur(20px);
+      transition: background .4s, border-color .4s;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-mark img { width: 36px; height: 36px; object-fit: contain; display: block; }
+    .logo-name { font-family: var(--sans); font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -.5px; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-pill { font-family: var(--mono); font-size: 10px; color: var(--green); border: 1px solid var(--green-border); padding: 6px 14px; border-radius: 100px; letter-spacing: .18em; text-transform: uppercase; }
+    .theme-toggle { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all .25s; flex-shrink: 0; padding: 0; }
+    .theme-toggle:hover { border-color: var(--green-border); background: var(--green-dim); }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+    .nav-cta { background: var(--green); color: var(--cta-text); font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 10px 22px; border-radius: 8px; text-decoration: none; letter-spacing: -.2px; transition: transform .2s, background .2s; }
+    .nav-cta:hover { background: var(--green-dark); transform: scale(1.03); }
+
+    /* HERO */
+    .hero { padding: 100px 56px 72px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: center; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .22em; text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp .8s ease forwards .2s; }
+    .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+    .hero h1 { font-family: var(--sans); font-size: clamp(48px, 6.5vw, 84px); font-weight: 800; line-height: .94; letter-spacing: -3.5px; margin-bottom: 32px; opacity: 0; animation: fadeUp .9s ease forwards .35s; }
+    .hero h1 .accent { color: var(--green); }
+    .hero h1 .dim { color: var(--muted); }
+    .hero-sub { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; font-weight: 300; max-width: 540px; opacity: 0; animation: fadeUp .8s ease forwards .5s; }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp .8s ease forwards .65s; }
+    .btn-primary { background: var(--green); color: var(--cta-text); font-family: var(--sans); font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 8px; text-decoration: none; letter-spacing: -.2px; transition: transform .2s, background .2s; cursor: pointer; border: none; display: inline-block; }
+    .btn-primary:hover { background: var(--green-dark); transform: scale(1.03); }
+    .btn-ghost { background: transparent; color: var(--text); font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 14px 26px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; transition: border .2s, background .2s; cursor: pointer; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--green-border); background: var(--green-dim); }
+
+    .hero-card { background: var(--hero-card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 32px; opacity: 0; animation: fadeUp .9s ease forwards .5s; position: relative; overflow: hidden; }
+    .hero-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top right, var(--green-dim), transparent 60%); pointer-events: none; }
+    .hc-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; margin-bottom: 22px; position: relative; }
+    .hc-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); position: relative; gap: 16px; }
+    .hc-row:last-child { border-bottom: none; }
+    .hc-key { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .05em; }
+    .hc-val { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--text); text-align: right; }
+    .hc-val.green { color: var(--green); }
+
+    /* SECTION */
+    .section { padding: 100px 56px; max-width: 1200px; margin: 0 auto; position: relative; }
+    .section-label { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .22em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 200px; }
+    .section-h2 { font-family: var(--sans); font-size: clamp(36px, 4.5vw, 60px); font-weight: 800; letter-spacing: -2.5px; line-height: 1; margin-bottom: 24px; }
+    .section-h2 .accent { color: var(--green); }
+    .section-body { font-size: 17px; color: var(--muted); line-height: 1.75; max-width: 680px; font-weight: 300; }
+    .section-body strong { color: var(--text); font-weight: 500; }
+    hr.div { border: none; border-top: 1px solid var(--border); margin: 0 auto; max-width: 1200px; }
+
+    /* EDGE GRID */
+    .edge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-top: 56px; }
+    .edge-card { background: var(--bg2); padding: 40px 36px; transition: background .3s; }
+    .edge-card:hover { background: var(--bg3); }
+    .edge-num { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .15em; margin-bottom: 18px; }
+    .edge-stat { font-family: var(--sans); font-size: 48px; font-weight: 800; color: var(--text); letter-spacing: -2px; line-height: 1; margin-bottom: 12px; }
+    .edge-stat .unit { color: var(--green); font-size: 32px; }
+    .edge-title { font-family: var(--sans); font-size: 16px; font-weight: 700; margin-bottom: 10px; letter-spacing: -.3px; }
+    .edge-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* RECAP */
+    .recap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
+    .recap-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .recap-num { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .15em; margin-bottom: 14px; }
+    .recap-title { font-family: var(--sans); font-size: 17px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 8px; }
+    .recap-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* REVENUE */
+    .rev-list { margin-top: 56px; display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 20px; background: var(--bg2); overflow: hidden; }
+    .rev-row { display: grid; grid-template-columns: 60px 1fr auto; gap: 28px; padding: 26px 32px; border-bottom: 1px solid var(--border); align-items: center; transition: background .2s; }
+    .rev-row:last-child { border-bottom: none; }
+    .rev-row:hover { background: var(--bg3); }
+    .rev-num { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .1em; }
+    .rev-name { font-family: var(--sans); font-size: 17px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 6px; }
+    .rev-detail { font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+    .rev-detail strong { color: var(--text); font-weight: 500; }
+    .rev-tag { font-family: var(--mono); font-size: 10px; color: var(--green); border: 1px solid var(--green-border); background: var(--green-dim); padding: 6px 12px; border-radius: 6px; letter-spacing: .1em; white-space: nowrap; }
+
+    /* SCENARIO */
+    .scenario-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 48px; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 6px; }
+    .scenario-tab { padding: 14px 10px; background: transparent; border: none; border-radius: 10px; font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all .2s; letter-spacing: -.2px; }
+    .scenario-tab:hover { color: var(--text); }
+    .scenario-tab.active { background: var(--green); color: var(--cta-text); }
+    .scenario-card { margin-top: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; }
+    .scenario-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top right, var(--green-dim), transparent 70%); pointer-events: none; }
+    .scenario-tagline { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; position: relative; }
+    .scenario-title { font-family: var(--sans); font-size: 32px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 32px; position: relative; }
+    .scenario-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+    .ss-block { padding: 20px 0; border-top: 1px solid var(--border); }
+    .ss-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+    .ss-num { font-family: var(--sans); font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -1px; line-height: 1; }
+    .ss-num.green { color: var(--green); }
+    .ss-sub { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+    /* PATHS */
+    .paths-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+    .path-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 40px 36px; position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+    .path-card:hover { border-color: var(--green-border); transform: translateY(-2px); }
+    .path-card.featured { border-color: var(--green-border); background: linear-gradient(180deg, var(--green-dim) 0%, var(--bg2) 100%); }
+    .path-badge { position: absolute; top: 22px; right: 22px; font-family: var(--mono); font-size: 10px; color: var(--green); background: var(--green-dim); border: 1px solid var(--green-border); padding: 5px 11px; border-radius: 100px; letter-spacing: .1em; }
+    .path-label { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .15em; margin-bottom: 14px; }
+    .path-title { font-family: var(--sans); font-size: 28px; font-weight: 800; letter-spacing: -1.2px; margin-bottom: 12px; line-height: 1.1; }
+    .path-amount { font-family: var(--sans); font-size: 18px; color: var(--green); font-weight: 700; margin-bottom: 24px; }
+    .path-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; font-weight: 300; }
+    .path-desc strong { color: var(--text); font-weight: 500; }
+    .path-features { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .path-feat { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .path-feat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .path-feat strong { color: var(--text); font-weight: 500; }
+
+    /* CALCULATOR */
+    .calc { margin-top: 56px; background: var(--bg2); border: 1px solid var(--border); border-radius: 24px; padding: 48px; position: relative; overflow: hidden; }
+    .calc::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top left, var(--green-dim), transparent 70%); pointer-events: none; }
+    .calc-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; position: relative; flex-wrap: wrap; gap: 20px; }
+    .calc-title { font-family: var(--sans); font-size: 28px; font-weight: 800; letter-spacing: -1.2px; }
+    .calc-toggle { display: flex; background: var(--bg3); border-radius: 10px; padding: 4px; border: 1px solid var(--border); }
+    .calc-toggle button { padding: 10px 20px; background: transparent; border: none; border-radius: 7px; font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all .2s; letter-spacing: -.2px; }
+    .calc-toggle button.active { background: var(--green); color: var(--cta-text); }
+
+    .calc-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; position: relative; }
+    .slider-block { display: flex; flex-direction: column; gap: 24px; }
+    .slider-row { display: flex; flex-direction: column; gap: 14px; }
+    .slider-label-row { display: flex; justify-content: space-between; align-items: center; }
+    .slider-label { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .slider-val { font-family: var(--sans); font-size: 24px; font-weight: 800; color: var(--green); letter-spacing: -.8px; }
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px; background: var(--bg3); border-radius: 100px; outline: none; border: 1px solid var(--border);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 22px; height: 22px; background: var(--green); border-radius: 50%; cursor: pointer;
+      border: 3px solid var(--bg2); box-shadow: 0 0 0 1px var(--green), 0 4px 14px var(--green-glow);
+      transition: transform .15s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px; background: var(--green); border-radius: 50%; cursor: pointer; border: 3px solid var(--bg2); box-shadow: 0 0 0 1px var(--green);
+    }
+    .slider-marks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--muted2); letter-spacing: .05em; }
+    .royalty-note { font-family: var(--body); font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+    .royalty-note strong { color: var(--text); font-weight: 500; }
+
+    .installment-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ipill { padding: 9px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); cursor: pointer; transition: all .2s; letter-spacing: .05em; }
+    .ipill:hover { color: var(--text); border-color: var(--green-border); }
+    .ipill.active { background: var(--green); color: var(--cta-text); border-color: var(--green); font-weight: 600; }
+
+    .calc-output { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+    .out-row { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 16px; border-bottom: 1px solid var(--border); gap: 16px; }
+    .out-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .out-key { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .out-val { font-family: var(--sans); font-size: 24px; font-weight: 800; letter-spacing: -1px; text-align: right; }
+    .out-val.big { font-size: 36px; color: var(--green); }
+    .out-val.green { color: var(--green); }
+    .out-sub { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* RETURNS TABLE */
+    .returns-wrap { margin-top: 48px; border: 1px solid var(--border); border-radius: 20px; background: var(--bg2); overflow: hidden; overflow-x: auto; }
+    .returns-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    .returns-table th { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; padding: 18px 24px; text-align: left; background: var(--bg3); border-bottom: 1px solid var(--border); font-weight: 400; }
+    .returns-table td { padding: 22px 24px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+    .returns-table tr:last-child td { border-bottom: none; }
+    .returns-table .scenario-name { font-family: var(--sans); font-weight: 700; color: var(--text); font-size: 15px; }
+    .returns-table .multi { font-family: var(--sans); font-weight: 800; font-size: 18px; color: var(--green); }
+    .returns-table .arrow { color: var(--muted); font-family: var(--mono); padding: 0 4px; }
+    .returns-foot { margin-top: 28px; font-family: var(--mono); font-size: 11px; color: var(--muted2); line-height: 1.7; letter-spacing: .03em; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 56px; display: flex; flex-direction: column; border-left: 2px solid var(--border); padding-left: 0; margin-left: 4px; }
+    .tl-row { position: relative; padding: 0 0 36px 36px; }
+    .tl-row::before { content: ''; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); }
+    .tl-row.active::before { background: var(--green); border-color: var(--green); box-shadow: 0 0 0 5px var(--green-dim); }
+    .tl-row.urgent::before { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 0 5px rgba(245,185,66,.15); }
+    .tl-when { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 8px; }
+    .tl-row.urgent .tl-when { color: var(--gold); }
+    .tl-what { font-family: var(--sans); font-size: 22px; font-weight: 800; letter-spacing: -.8px; margin-bottom: 8px; }
+    .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; max-width: 580px; }
+
+    /* FINAL CTA */
+    .final { padding: 120px 56px; text-align: center; background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--green-dim) 0%, transparent 70%); border-top: 1px solid var(--border); margin-top: 60px; }
+    .final-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: .22em; text-transform: uppercase; margin-bottom: 28px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 100px; }
+    .final h2 { font-family: var(--sans); font-size: clamp(48px, 7vw, 88px); font-weight: 800; letter-spacing: -3.5px; line-height: .92; max-width: 900px; margin: 0 auto 28px; }
+    .final h2 .accent { color: var(--green); }
+    .final p { font-size: 18px; color: var(--muted); line-height: 1.7; max-width: 560px; margin: 0 auto 40px; font-weight: 300; }
+    .final-cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .final-foot { margin-top: 64px; font-family: var(--mono); font-size: 11px; color: var(--muted2); letter-spacing: .1em; }
+
+    /* FOOTER */
+    footer.foot { padding: 32px 56px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .foot-l { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+    .foot-l span { color: var(--green); }
+    .foot-r { font-family: var(--mono); font-size: 10px; color: var(--muted2); letter-spacing: .1em; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .nav { padding: 16px 20px; }
+      .nav-pill { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 60px 20px 48px; gap: 48px; }
+      .section { padding: 64px 20px; }
+      .edge-grid, .paths-grid { grid-template-columns: 1fr; }
+      .recap-grid { grid-template-columns: 1fr; }
+      .scenario-tabs { grid-template-columns: 1fr 1fr; }
+      .scenario-stats { grid-template-columns: 1fr 1fr; }
+      .calc { padding: 28px; }
+      .calc-body { grid-template-columns: 1fr; gap: 32px; }
+      .rev-row { grid-template-columns: 1fr; gap: 14px; }
+      .rev-tag { justify-self: start; }
+      .final { padding: 64px 20px; }
+      .final h2 { letter-spacing: -2px; }
+      footer.foot { padding: 24px 20px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="logo" href="/">
+    <div class="logo-mark"><img src="/logo-transparent.png" alt="Tradr logo" /></div>
+    <span class="logo-name">Tradr</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-pill">Investor Brief · 2026</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+      <span class="icon-moon">🌙</span>
+      <span class="icon-sun">☀️</span>
+    </button>
+    <a class="nav-cta" href="#invest">Invest →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">
+      <div class="pulse-dot"></div>
+      Pre-launch raise · €100,000 · Closing soon
+    </div>
+    <h1>
+      <span class="dim">You already saw</span><br/>
+      what we're building.<br/>
+      <span class="accent">Now you can own a piece of it.</span>
+    </h1>
+    <p class="hero-sub">
+      Tradr launches July 4 with <strong><span id="heroCount">0</span>+ traders already waiting</strong>
+      and 3M monthly views built before a single user signed up. We're raising
+      <strong>€100,000 at a €2M pre-money valuation</strong> from a small group of early backers.
+      Two ways in. Both win.
+    </p>
+    <div class="hero-cta-row">
+      <a class="btn-primary" href="#invest">See investment options →</a>
+      <a class="btn-ghost" href="#scenarios">View 12-month projections</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hc-label">Offering snapshot</div>
+    <div class="hc-row"><span class="hc-key">Total raise</span><span class="hc-val green">€100,000</span></div>
+    <div class="hc-row"><span class="hc-key">Pre-money valuation</span><span class="hc-val">€2,000,000</span></div>
+    <div class="hc-row"><span class="hc-key">Equity offered</span><span class="hc-val">5%</span></div>
+    <div class="hc-row"><span class="hc-key">Min. investment</span><span class="hc-val">€20,000</span></div>
+    <div class="hc-row"><span class="hc-key">Royalty alternative</span><span class="hc-val">€50K → 5% rev (2× cap)</span></div>
+    <div class="hc-row"><span class="hc-key">Installments</span><span class="hc-val">Up to 12 months</span></div>
+    <div class="hc-row"><span class="hc-key">Launch</span><span class="hc-val green">July 4, 2026</span></div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 01 — EDGE -->
+<section class="section reveal">
+  <div class="section-label">01 — Why this isn't a normal startup bet</div>
+  <h2 class="section-h2">
+    Most startups die because <span class="accent">they can't get users.</span><br/>
+    We have ours already.
+  </h2>
+  <p class="section-body">
+    The reason 95% of social platforms fail isn't the product. It's distribution. They build
+    something good and then burn millions trying to find an audience. Tradr starts on the other
+    side of that problem. The audience was built first.
+    <strong>The product is being released into a community that already exists.</strong>
+  </p>
+  <div class="edge-grid">
+    <div class="edge-card">
+      <div class="edge-num">01 — Distribution</div>
+      <div class="edge-stat">105<span class="unit">K</span></div>
+      <div class="edge-title">Followers — built before launch</div>
+      <div class="edge-body">Five years of organic content. Zero paid acquisition. A targeted audience of active traders — the exact users the platform needs.</div>
+    </div>
+    <div class="edge-card">
+      <div class="edge-num">02 — Engagement</div>
+      <div class="edge-stat">3<span class="unit">M+</span></div>
+      <div class="edge-title">Monthly views</div>
+      <div class="edge-body">The audience watches every week. An active Telegram community sits underneath the public channels — high-intent, ready to trade, ready to post.</div>
+    </div>
+    <div class="edge-card">
+      <div class="edge-num">03 — Timing</div>
+      <div class="edge-stat">10<span class="unit">×</span></div>
+      <div class="edge-title">Retail growth since 2020</div>
+      <div class="edge-body">Online trading exploded. The infrastructure didn't. There's no Yelp for traders, no LinkedIn for performance. Tradr fills that gap.</div>
+    </div>
+    <div class="edge-card">
+      <div class="edge-num">04 — Product</div>
+      <div class="edge-stat">Jul <span class="unit">4</span></div>
+      <div class="edge-title">Launch date — locked</div>
+      <div class="edge-body">Beta in June. Waitlist in May. The platform works today — auto-resolution engine, live price feeds, profile system. Not a pitch deck. A product.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 02 — RECAP -->
+<section class="section reveal">
+  <div class="section-label">02 — In case you skipped the demo</div>
+  <h2 class="section-h2">
+    Tradr in 30 seconds.<br/>
+    <span class="accent">Verified trades, not screenshots.</span>
+  </h2>
+  <p class="section-body">
+    Every trade on Tradr is auto-resolved by live market data. When price hits TP or SL, the
+    trade is marked WIN or LOSS — automatically, by the market. Cannot be edited. Cannot be
+    deleted. Your track record is permanent and public.
+    <strong>The first social trading platform where lying about your performance is technically impossible.</strong>
+  </p>
+  <div class="recap-grid">
+    <div class="recap-card">
+      <div class="recap-num">01 — POST</div>
+      <div class="recap-title">Trader opens a position</div>
+      <div class="recap-body">Market, direction, entry, SL, TP. Entry price is locked at live market rate. Timestamped and public.</div>
+    </div>
+    <div class="recap-card">
+      <div class="recap-num">02 — VERIFY</div>
+      <div class="recap-title">Market closes the trade</div>
+      <div class="recap-body">Edge functions check live OHLC every few seconds. SL or TP hit → auto-resolved as WIN or LOSS. No human in the loop.</div>
+    </div>
+    <div class="recap-card">
+      <div class="recap-num">03 — COMPOUND</div>
+      <div class="recap-title">Reputation gets monetised</div>
+      <div class="recap-body">Verified track records → followers → paid signal rooms, courses, communities. The best traders rise. Tradr takes 5%.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 03 — REVENUE -->
+<section class="section reveal">
+  <div class="section-label">03 — How Tradr makes money</div>
+  <h2 class="section-h2">
+    Five revenue streams.<br/>
+    <span class="accent">One flywheel.</span>
+  </h2>
+  <p class="section-body">
+    Tradr doesn't depend on a single business line. The platform monetises the same activity
+    traders already do — paying for signals, buying courses, joining communities, building
+    credibility. <strong>We capture and standardise existing behaviour</strong> and take a cut of
+    every transaction.
+  </p>
+  <div class="rev-list">
+    <div class="rev-row">
+      <div class="rev-num">01</div>
+      <div>
+        <div class="rev-name">5% transaction commission</div>
+        <div class="rev-detail">Every payment that flows through Tradr — signal subscriptions, tips, course sales, community fees — Tradr takes <strong>5%</strong>. Lowest take rate in the space. Infrastructure positioning, not rent-seeking.</div>
+      </div>
+      <div class="rev-tag">CORE ENGINE</div>
+    </div>
+    <div class="rev-row">
+      <div class="rev-num">02</div>
+      <div>
+        <div class="rev-name">Signal room subscriptions</div>
+        <div class="rev-detail">Verified top traders price their signal rooms anywhere from <strong>$20 to $500/month</strong>. Followers subscribe to copy verified performers. Tradr takes 5% of every recurring payment.</div>
+      </div>
+      <div class="rev-tag">RECURRING</div>
+    </div>
+    <div class="rev-row">
+      <div class="rev-num">03</div>
+      <div>
+        <div class="rev-name">Creator tools</div>
+        <div class="rev-detail">Creators pay <strong>$50/month</strong> to sell courses on the platform and <strong>$100/month</strong> to host their community. Pure SaaS margins on top of the social layer they already have.</div>
+      </div>
+      <div class="rev-tag">SAAS</div>
+    </div>
+    <div class="rev-row">
+      <div class="rev-num">04</div>
+      <div>
+        <div class="rev-name">Verified profile boosts</div>
+        <div class="rev-detail">Optional <strong>$10–$20/month</strong> badge that gives traders priority visibility on the For You feed. Does <strong>not</strong> affect the leaderboard — leaderboard is performance only. Boosts visibility, not ranking.</div>
+      </div>
+      <div class="rev-tag">CONSUMER</div>
+    </div>
+    <div class="rev-row">
+      <div class="rev-num">05</div>
+      <div>
+        <div class="rev-name">Broker licensing</div>
+        <div class="rev-detail">Brokers pay to integrate — their users' MT4/MT5 trades auto-post directly to Tradr. Massive B2B revenue stream as it scales: brokers want the marketing, users want the credibility, Tradr gets the volume.</div>
+      </div>
+      <div class="rev-tag">B2B · SCALE</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 04 — SCENARIOS -->
+<section class="section reveal" id="scenarios">
+  <div class="section-label">04 — 12-month outlook</div>
+  <h2 class="section-h2">
+    Where Tradr could be<br/>
+    <span class="accent">12 months from launch.</span>
+  </h2>
+  <p class="section-body">
+    Four scenarios. Not promises — illustrative models built from realistic conversion
+    assumptions on the existing 105K audience. Toggle between them. The numbers shift, the
+    structure doesn't.
+  </p>
+  <div class="scenario-tabs" id="scenarioTabs">
+    <button class="scenario-tab" data-scenario="pessimistic">Pessimistic</button>
+    <button class="scenario-tab active" data-scenario="realistic">Realistic</button>
+    <button class="scenario-tab" data-scenario="best">Best Case</button>
+    <button class="scenario-tab" data-scenario="moonshot">Moonshot</button>
+  </div>
+  <div class="scenario-card">
+    <div class="scenario-tagline" id="scenarioTagline">Audience converts at expected rate, broker deal lands</div>
+    <div class="scenario-title" id="scenarioTitle">Realistic — month 12</div>
+    <div class="scenario-stats">
+      <div class="ss-block">
+        <div class="ss-label">Active users</div>
+        <div class="ss-num green" id="sUsers">25,000</div>
+        <div class="ss-sub">on the platform</div>
+      </div>
+      <div class="ss-block">
+        <div class="ss-label">Paying subs</div>
+        <div class="ss-num" id="sPaying">5,000</div>
+        <div class="ss-sub">recurring revenue base</div>
+      </div>
+      <div class="ss-block">
+        <div class="ss-label">Monthly GMV</div>
+        <div class="ss-num" id="sGMV">€280,000</div>
+        <div class="ss-sub">flowing through platform</div>
+      </div>
+      <div class="ss-block">
+        <div class="ss-label">Implied valuation</div>
+        <div class="ss-num green" id="sVal">€12,000,000</div>
+        <div class="ss-sub" id="sMultiple">6× on €100K equity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 05 — TWO PATHS -->
+<section class="section reveal" id="invest">
+  <div class="section-label">05 — Two ways to invest</div>
+  <h2 class="section-h2">
+    Pick your path.<br/>
+    <span class="accent">Both are designed to win.</span>
+  </h2>
+  <p class="section-body">
+    Equity is for investors who believe Tradr becomes a category-defining company and want
+    long-term upside. Royalty is for investors who want monthly cash flow with a defined exit.
+    Same company, two structures. Both are first come, first served.
+  </p>
+  <div class="paths-grid">
+    <div class="path-card">
+      <div class="path-badge">CASH FLOW</div>
+      <div class="path-label">OPTION A — ROYALTY</div>
+      <div class="path-title">Get paid monthly until you 2× your money.</div>
+      <div class="path-amount">€50,000 investment</div>
+      <p class="path-desc">
+        You invest €50,000. Tradr pays you <strong>5% of monthly top-line revenue</strong> until
+        you've received €100,000 back — a 2× cap. Then it ends. No equity. No long-term commitment
+        from either side. Pure recurring cash flow with a defined exit.
+      </p>
+      <div class="path-features">
+        <div class="path-feat"><span><strong>5% top-line revenue</strong> paid monthly</span></div>
+        <div class="path-feat"><span>Capped at <strong>€100,000 returned</strong> (2× of €50K invested)</span></div>
+        <div class="path-feat"><span>No equity dilution — pure revenue share</span></div>
+        <div class="path-feat"><span><strong>Installment option:</strong> €4,166/month over 12 months</span></div>
+        <div class="path-feat"><span>Monthly statements with full revenue transparency</span></div>
+      </div>
+    </div>
+    <div class="path-card featured">
+      <div class="path-badge">UPSIDE</div>
+      <div class="path-label">OPTION B — EQUITY</div>
+      <div class="path-title">Own a piece of Tradr — uncapped upside.</div>
+      <div class="path-amount">From €20,000 (min)</div>
+      <p class="path-desc">
+        You invest from <strong>€20,000 up to €100,000</strong>. Equity scales linearly: €100K =
+        5% of Tradr (the full equity tier), €50K = 2.5%, €20K = 1%. No cap on return. If Tradr
+        becomes the LinkedIn-for-traders we're building toward, your €20K could be worth millions
+        five years from now.
+      </p>
+      <div class="path-features">
+        <div class="path-feat"><span><strong>5% equity for €100K</strong> (€2M pre-money valuation)</span></div>
+        <div class="path-feat"><span>Linear scaling — invest any amount from €20K to €100K</span></div>
+        <div class="path-feat"><span><strong>Installments available</strong> — same equity terms, no penalty</span></div>
+        <div class="path-feat"><span>Pro-rata rights at next round (€25K+)</span></div>
+        <div class="path-feat"><span>SAFE / convertible note structure — clean and standard</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 06 — CALCULATOR -->
+<section class="section reveal">
+  <div class="section-label">06 — Build your investment</div>
+  <h2 class="section-h2">
+    Move the slider.<br/>
+    <span class="accent">See exactly what you get.</span>
+  </h2>
+  <p class="section-body">
+    Both structures supported. Pick equity or royalty, choose your amount, choose lump-sum or
+    installments. The math updates live.
+  </p>
+  <div class="calc">
+    <div class="calc-header">
+      <div class="calc-title">Investment calculator</div>
+      <div class="calc-toggle" id="structureToggle">
+        <button class="active" data-struct="equity">Equity</button>
+        <button data-struct="royalty">Royalty</button>
+      </div>
+    </div>
+    <div class="calc-body">
+      <div class="slider-block">
+        <div class="slider-row" id="equitySlider">
+          <div class="slider-label-row">
+            <span class="slider-label">Investment amount</span>
+            <span class="slider-val" id="amountDisplay">€50,000</span>
+          </div>
+          <input type="range" id="amountInput" min="20000" max="100000" step="5000" value="50000"/>
+          <div class="slider-marks">
+            <span>€20K</span>
+            <span>€60K</span>
+            <span>€100K</span>
+          </div>
+        </div>
+        <div class="slider-row" id="royaltySlider" style="display:none;">
+          <div class="slider-label-row">
+            <span class="slider-label">Royalty investment</span>
+            <span class="slider-val">€50,000</span>
+          </div>
+          <p class="royalty-note">
+            Royalty option is a fixed €50,000 commitment. You receive
+            <strong>5% of top-line revenue monthly</strong> until you've been paid back €100,000
+            (2× cap). Then the agreement ends.
+          </p>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label-row">
+            <span class="slider-label">Payment plan</span>
+            <span class="slider-val" id="planDisplay">12 × €4,167</span>
+          </div>
+          <div class="installment-pills" id="installmentPills">
+            <button class="ipill" data-months="0">Lump sum</button>
+            <button class="ipill" data-months="3">3 months</button>
+            <button class="ipill" data-months="6">6 months</button>
+            <button class="ipill active" data-months="12">12 months</button>
+          </div>
+        </div>
+      </div>
+      <div class="calc-output" id="calcOutput">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- 07 — RETURNS TABLE -->
+<section class="section reveal">
+  <div class="section-label">07 — What your equity could be worth</div>
+  <h2 class="section-h2">
+    Long-term upside.<br/>
+    <span class="accent">Where equity beats royalty.</span>
+  </h2>
+  <p class="section-body">
+    Royalty caps at 2×. Equity doesn't. If Tradr becomes the standard for trader reputation —
+    the LinkedIn for the trading world — early equity could compound for 5–7 years. Here's what
+    each scenario looks like at year 1 valuation, and where it could go beyond that.
+  </p>
+  <div class="returns-wrap">
+    <table class="returns-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Year 1 valuation</th>
+          <th>Long-term path (Yr 3–5)</th>
+          <th>€20K becomes</th>
+          <th>€100K becomes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="scenario-name">Pessimistic</td>
+          <td>€4M</td>
+          <td>Modest growth · €8M Yr 3</td>
+          <td>€20K <span class="arrow">→</span> <span class="multi">€40K</span></td>
+          <td>€100K <span class="arrow">→</span> <span class="multi">€200K</span></td>
+        </tr>
+        <tr>
+          <td class="scenario-name">Realistic</td>
+          <td>€12M</td>
+          <td>Strong growth · €30M Yr 3</td>
+          <td>€20K <span class="arrow">→</span> <span class="multi">€120K</span></td>
+          <td>€100K <span class="arrow">→</span> <span class="multi">€600K</span></td>
+        </tr>
+        <tr>
+          <td class="scenario-name">Best case</td>
+          <td>€35M</td>
+          <td>Category leader · €80M+ Yr 3</td>
+          <td>€20K <span class="arrow">→</span> <span class="multi">€350K</span></td>
+          <td>€100K <span class="arrow">→</span> <span class="multi">€1.75M</span></td>
+        </tr>
+        <tr>
+          <td class="scenario-name">Moonshot</td>
+          <td>€100M+</td>
+          <td>Bloomberg-tier · €500M+ Yr 5</td>
+          <td>€20K <span class="arrow">→</span> <span class="multi">€1M</span></td>
+          <td>€100K <span class="arrow">→</span> <span class="multi">€5M+</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="returns-foot">
+    Projections are illustrative models, not guarantees. eToro went public at $10B as a broker
+    that bolted social on top. Tradr builds the trust layer first — with 105K built-in users on
+    day one. Different category. Different ceiling.
+  </p>
+</section>
+
+<hr class="div"/>
+
+<!-- 08 — TIMELINE -->
+<section class="section reveal">
+  <div class="section-label">08 — What happens next</div>
+  <h2 class="section-h2">
+    Things move fast<br/>
+    <span class="accent">from here.</span>
+  </h2>
+  <p class="section-body">
+    The window for entering at €2M pre-money closes at launch. Once the platform is live and
+    numbers start coming in, the next round is at a different valuation. This is the lowest entry
+    point Tradr will ever have.
+  </p>
+  <div class="timeline">
+    <div class="tl-row active">
+      <div class="tl-when">Now — April 2026</div>
+      <div class="tl-what">Investor round open</div>
+      <div class="tl-desc">Speaking with a small group of early backers. €100K total raise. First-come, first-served between equity and royalty allocations.</div>
+    </div>
+    <div class="tl-row urgent">
+      <div class="tl-when">May 2026 — Waitlist opens</div>
+      <div class="tl-what">Public waitlist live at tradr.me</div>
+      <div class="tl-desc">Audience activation begins. The 105K followers get pointed to the waitlist. Numbers start moving publicly — and so does the perceived valuation.</div>
+    </div>
+    <div class="tl-row urgent">
+      <div class="tl-when">June 2026 — Private beta</div>
+      <div class="tl-what">First users on the platform</div>
+      <div class="tl-desc">Inner circle gets early access. First verified track records start building. Beta feedback shapes launch features. Investor terms harden.</div>
+    </div>
+    <div class="tl-row urgent">
+      <div class="tl-when">July 4, 2026 — Public launch</div>
+      <div class="tl-what">Tradr goes live globally</div>
+      <div class="tl-desc">Full launch to the public audience. 5% commission live from day one. Signal rooms open. Leaderboard activates. The investor entry window at this valuation is closed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final reveal">
+  <div class="final-eyebrow">
+    <div class="pulse-dot"></div>
+    Closing soon · Limited allocation
+  </div>
+  <h2>
+    Get in before<br/>
+    <span class="accent">it becomes obvious.</span>
+  </h2>
+  <p>
+    You already know what we're building. You've seen the deck, the platform, and the audience.
+    Now choose how you want in — and let's talk before the window closes.
+  </p>
+  <div class="final-cta-row">
+    <a class="btn-primary" href="mailto:harchimommo@gmail.com?subject=Tradr%20investment%20-%20want%20to%20talk">Email Mohamed →</a>
+    <a class="btn-ghost" href="https://tradr.me/pitch">Re-read the deck</a>
+  </div>
+  <div class="final-foot">MOHAMED HARCHI · FOUNDER &amp; CEO · HARCHIMOMMO@GMAIL.COM</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-l">© 2026 <span>Tradr LTD</span> · tradr.me · Confidential — for prospective investors</div>
+  <div class="foot-r">PROJECTIONS ARE ILLUSTRATIVE · NOT INVESTMENT ADVICE</div>
+</footer>
+
+<script>
+  // ─── THEME TOGGLE ────────────────────────────────────────────────────
+  function toggleTheme() {
+    var html = document.documentElement;
+    var next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('tradr-invest-theme', next); } catch(e) {}
+  }
+  try {
+    var saved = localStorage.getItem('tradr-invest-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  } catch(e) {}
+
+  // ─── HERO COUNTER ────────────────────────────────────────────────────
+  (function() {
+    var target = 105000;
+    var start = performance.now();
+    var dur = 1800;
+    var el = document.getElementById('heroCount');
+    function step(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+
+  // ─── SCENARIO DATA ───────────────────────────────────────────────────
+  var SCENARIOS = {
+    pessimistic: {
+      label: 'Pessimistic',
+      tagline: 'Slow conversion, modest signal-room adoption',
+      users: 8000, paying: 1200, monthlyGMV: 60000, monthlyRev: 8000,
+      valuation: 4000000, multiple: 2
+    },
+    realistic: {
+      label: 'Realistic',
+      tagline: 'Audience converts at expected rate, broker deal lands',
+      users: 25000, paying: 5000, monthlyGMV: 280000, monthlyRev: 32000,
+      valuation: 12000000, multiple: 6
+    },
+    best: {
+      label: 'Best Case',
+      tagline: 'Network effects kick in, viral loop activates',
+      users: 70000, paying: 18000, monthlyGMV: 950000, monthlyRev: 105000,
+      valuation: 35000000, multiple: 17.5
+    },
+    moonshot: {
+      label: 'Moonshot',
+      tagline: 'Category-defining — Tradr becomes the standard',
+      users: 200000, paying: 60000, monthlyGMV: 3500000, monthlyRev: 350000,
+      valuation: 100000000, multiple: 50
+    }
+  };
+
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function fmtEur(n) { return '€' + n.toLocaleString('en-US'); }
+
+  // ─── SCENARIO TABS ───────────────────────────────────────────────────
+  var currentScenario = 'realistic';
+  var tabs = document.querySelectorAll('#scenarioTabs .scenario-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      currentScenario = tab.getAttribute('data-scenario');
+      renderScenario();
+      renderCalc();
+    });
+  });
+
+  function renderScenario() {
+    var s = SCENARIOS[currentScenario];
+    document.getElementById('scenarioTagline').textContent = s.tagline;
+    document.getElementById('scenarioTitle').textContent = s.label + ' — month 12';
+    document.getElementById('sUsers').textContent = fmt(s.users);
+    document.getElementById('sPaying').textContent = fmt(s.paying);
+    document.getElementById('sGMV').textContent = fmtEur(s.monthlyGMV);
+    document.getElementById('sVal').textContent = fmtEur(s.valuation);
+    document.getElementById('sMultiple').textContent = s.multiple + '× on €100K equity';
+  }
+
+  // ─── CALCULATOR ──────────────────────────────────────────────────────
+  var structure = 'equity';
+  var amount = 50000;
+  var months = 12;
+
+  var structureBtns = document.querySelectorAll('#structureToggle button');
+  structureBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      structureBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      structure = btn.getAttribute('data-struct');
+      if (structure === 'equity') {
+        document.getElementById('equitySlider').style.display = '';
+        document.getElementById('royaltySlider').style.display = 'none';
+      } else {
+        document.getElementById('equitySlider').style.display = 'none';
+        document.getElementById('royaltySlider').style.display = '';
+      }
+      renderCalc();
+    });
+  });
+
+  var amountInput = document.getElementById('amountInput');
+  amountInput.addEventListener('input', function() {
+    amount = parseInt(amountInput.value, 10);
+    document.getElementById('amountDisplay').textContent = fmtEur(amount);
+    renderCalc();
+  });
+
+  var pills = document.querySelectorAll('#installmentPills .ipill');
+  pills.forEach(function(p) {
+    p.addEventListener('click', function() {
+      pills.forEach(function(x) { x.classList.remove('active'); });
+      p.classList.add('active');
+      months = parseInt(p.getAttribute('data-months'), 10);
+      renderCalc();
+    });
+  });
+
+  function renderCalc() {
+    var s = SCENARIOS[currentScenario];
+    var planDisplay = document.getElementById('planDisplay');
+    var output = document.getElementById('calcOutput');
+    var amt = structure === 'equity' ? amount : 50000;
+    var monthly = months > 0 ? Math.round(amt / months) : amt;
+
+    if (months === 0) {
+      planDisplay.textContent = 'Lump sum';
+    } else {
+      planDisplay.textContent = months + ' × ' + fmtEur(monthly);
+    }
+
+    if (structure === 'equity') {
+      var equityPct = (amount / 100000) * 5;
+      var equityValue = Math.round((equityPct / 100) * s.valuation);
+      output.innerHTML =
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">You invest</div>' +
+            '<div class="out-sub">' + (months > 0 ? fmtEur(monthly) + '/mo × ' + months : 'Lump sum') + '</div>' +
+          '</div>' +
+          '<div class="out-val">' + fmtEur(amount) + '</div>' +
+        '</div>' +
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">You own</div>' +
+            '<div class="out-sub">of Tradr</div>' +
+          '</div>' +
+          '<div class="out-val big">' + equityPct.toFixed(2) + '%</div>' +
+        '</div>' +
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">Worth in ' + s.label.toLowerCase() + ' case</div>' +
+            '<div class="out-sub">at month 12 — ' + fmtEur(s.valuation) + ' val.</div>' +
+          '</div>' +
+          '<div class="out-val green">' + fmtEur(equityValue) + '</div>' +
+        '</div>';
+    } else {
+      var avgMonthlyRev = s.monthlyRev * 0.5;
+      var monthlyRoyalty = avgMonthlyRev * 0.05;
+      var cap = 100000;
+      var timeToDouble = monthlyRoyalty > 0 ? Math.ceil(cap / monthlyRoyalty) : 999;
+      var timeStr = timeToDouble > 60 ? '60+ months' : '~' + timeToDouble + ' months';
+      output.innerHTML =
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">You invest</div>' +
+            '<div class="out-sub">' + (months > 0 ? fmtEur(Math.round(50000 / months)) + '/mo × ' + months : 'Lump sum') + '</div>' +
+          '</div>' +
+          '<div class="out-val">€50,000</div>' +
+        '</div>' +
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">You receive back</div>' +
+            '<div class="out-sub">2× cap on royalty</div>' +
+          '</div>' +
+          '<div class="out-val big">€100,000</div>' +
+        '</div>' +
+        '<div class="out-row">' +
+          '<div>' +
+            '<div class="out-key">Time to 2× (' + s.label.toLowerCase() + ')</div>' +
+            '<div class="out-sub">based on revenue ramp</div>' +
+          '</div>' +
+          '<div class="out-val green">' + timeStr + '</div>' +
+        '</div>';
+    }
+  }
+
+  renderScenario();
+  renderCalc();
+
+  // ─── REVEAL ON SCROLL ────────────────────────────────────────────────
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+</script>
+
+</body>
+</html>
