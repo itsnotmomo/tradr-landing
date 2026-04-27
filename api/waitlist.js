@@ -21,6 +21,9 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           email,
           unsubscribed: false,
+          data: {
+            source: 'waitlist',
+          },
         }),
       }
     );

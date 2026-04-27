@@ -737,7 +737,7 @@
 </footer>
 
 <script>
-  const BASE_COUNT = 1378;
+  const BASE_COUNT = 743;
   let sessionSignups = 0;
 
   function toggleTheme() {
@@ -771,6 +771,15 @@
   }
 
   setTimeout(() => animateCount(BASE_COUNT), 600);
+
+  fetch('/api/count')
+    .then(r => r.json())
+    .then(data => {
+      if (data.count && data.count > BASE_COUNT) {
+        animateCount(data.count);
+      }
+    })
+    .catch(() => {});
 
   async function submitWL(inputId, formId, successId) {
     const email = document.getElementById(inputId).value.trim();
