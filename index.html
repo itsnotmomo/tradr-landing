@@ -737,8 +737,7 @@
 </footer>
 
 <script>
-  const BASE_COUNT = 743;
-  let sessionSignups = 0;
+  let realCount = null;
 
   function toggleTheme() {
     const html = document.documentElement;
@@ -770,16 +769,17 @@
     requestAnimationFrame(step);
   }
 
-  setTimeout(() => animateCount(BASE_COUNT), 600);
-
+  // Load real count first, then animate to it
   fetch('/api/count')
     .then(r => r.json())
     .then(data => {
-      if (data.count && data.count > BASE_COUNT) {
-        animateCount(data.count);
-      }
+      realCount = data.count || 743;
+      setTimeout(() => animateCount(realCount), 600);
     })
-    .catch(() => {});
+    .catch(() => {
+      realCount = 743;
+      setTimeout(() => animateCount(realCount), 600);
+    });
 
   async function submitWL(inputId, formId, successId) {
     const email = document.getElementById(inputId).value.trim();
@@ -788,25 +788,22 @@
       document.getElementById(inputId).focus();
       return;
     }
-
     const btn = document.querySelector('#' + formId + ' .waitlist-btn');
     btn.textContent = 'Saving...';
     btn.disabled = true;
-
     try {
       await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
+      realCount = (realCount || 743) + 1;
     } catch (e) {
-      // fail silently
+      realCount = (realCount || 743) + 1;
     }
-
     document.getElementById(formId).style.display = 'none';
     document.getElementById(successId).style.display = 'flex';
-    sessionSignups++;
-    setCounters(BASE_COUNT + sessionSignups);
+    setCounters(realCount);
   }
 
   document.getElementById('e1').addEventListener('keydown', e => { if(e.key==='Enter') submitWL('e1','wf1','ws1'); });
